@@ -1,0 +1,16 @@
+PODS:
+  - ViewAnimator (2.4.0)
+
+DEPENDENCIES:
+  - ViewAnimator (from `../`)
+
+EXTERNAL SOURCES:
+  ViewAnimator:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  ViewAnimator: 28b9ef703e280a02852b1271ef36295ea96eae4b
+
+PODFILE CHECKSUM: 22f89c54f0957ad6ef13487f18368267106077d4
+
+COCOAPODS: 1.6.1

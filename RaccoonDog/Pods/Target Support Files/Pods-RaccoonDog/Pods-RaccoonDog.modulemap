@@ -1,0 +1,6 @@
+framework module Pods_RaccoonDog {
+  umbrella header "Pods-RaccoonDog-umbrella.h"
+
+  export *
+  module * { export * }
+}

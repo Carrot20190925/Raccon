@@ -1,0 +1,27 @@
+
+github "SnapKit/SnapKit"
+
+github "SnapKit/Masonry"
+
+github "CoderMJLee/MJRefresh"
+
+github "CoderMJLee/MJExtension"
+
+Github "onevcat/Kingfisher"
+
+github "scalessec/Toast-Swift" ~> 5.0.1
+
+github "Alamofire/Alamofire" "5.0.0-rc.3"
+
+github "marcosgriselli/ViewAnimator"
+
+github "ccgus/fmdb"
+
+github "ReactiveX/RxSwift" ~> 5.0
+
+github "iziz/libPhoneNumber-iOS"
+
+github "devxoul/Then"
+
+
+
