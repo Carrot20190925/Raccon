@@ -10,8 +10,10 @@ import UIKit
 
 class NovelListVC: BaseTableController {
 
-    var listModels : [NovelChapterModel] = []
-    var novel_id : Int = 0
+    var bookItem : BookShelfModel?
+    var readModel : ReadModel?
+//    var listModels : [NovelChapterModel] = []
+//    var novel_id : Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.register(BaseTableCell.self, forCellReuseIdentifier: "cell")
@@ -36,36 +38,40 @@ class NovelListVC: BaseTableController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return self.listModels.count
+        return readModel?.listModels.count ?? 0
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! BaseTableCell
-        cell.textLabel?.text = self.listModels[indexPath.row].chapter_title
+        cell.textLabel?.text = readModel?.listModels[indexPath.row].chapter_title
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let model = self.listModels[indexPath.row]
-        guard let url = model.chapter_content else {
+        
+        guard let readModel = self.readModel else {
             return
         }
-        
-        
-        if let content = ContentManager.share.getContent(chapter_no: model.chapter_no, novel_id: model.novel_id){
-            MyLog(content)
-        }else
-        {
-            RDBookNetManager.novelChapterContentNetWork(url:url, success: { (response) in
-                if let content = response as? String{
-                    ContentManager.share.saveContent(chapter_no: model.chapter_no, novel_id: model.novel_id, content: content)
-                }
-                MyLog(response)
-                
-            }) { (error) in
-                MyLog(error)
+        if indexPath.row != readModel.currentReadModel.index {
+            if var read = readModel.listModels[readModel.currentReadModel.index] as? NovelChapterModel{
+                read.isCurrentRead = false
+                read.save()
+                read = readModel.listModels[indexPath.row]
+                read.isCurrentRead = true
+                read.isRead = true
+                read.save()
+                let currentModel = ParserReadModel.getModel(url: read.chapter_content, chapter_no: read.chapter_no, novel_id: read.novel_id, title: read.chapter_title)
+                currentModel.index = indexPath.row
+                self.readModel?.currentReadModel =  currentModel
+
             }
         }
+        
+        let readvc = ReadVC.init()
+        readvc.readModel = readModel
+        
+        self.navigationController?.pushViewController(readvc, animated: true)
+
 
     }
 
@@ -124,28 +130,45 @@ class NovelListVC: BaseTableController {
 extension NovelListVC{
     
     func loadData() {
-        
-        RD_DBManager.getNovelList(novel_id: self.novel_id) {[weak self] (data) in
-            guard let weakSelf = self else{
-                return
-            }
-            
-            if let items = data as? Array<Any>{
-                weakSelf.setupData(data: items)
-            }else{
-                RDBookNetManager.novelChapterNetWork(novel_id: String.init(weakSelf.novel_id), success: { (response) in
-                    if let model = BaseModel.getModel(data: response),model.code == 200,let item = model.data as? Dictionary<String,Any>{
-                        let datas = item["data"]
-                        weakSelf.setupData(data: datas)
-                        RD_DBManager.share.updateNovelList(data: datas)
-                    }
-                    MyLog(response)
-
-                }) { (error) in
-                    MyLog(error)
-                }
-            }
+        if self.readModel != nil{
+            self.tableView.reloadData()
+            return
         }
+        guard let item = self.bookItem else {
+            return
+        }
+        readModel = ReadModel.init(bookId: item.id)
+        readModel?.bookName = self.bookItem?.title
+        readModel?.bookAuthor = self.bookItem?.author
+        if let items = RD_DBManager.getSyncNovelList(novel_id: item.id){
+            self.setupData(data: items)
+        }else{
+            RDBookNetManager.novelChapterNetWork(novel_id: String.init(item.id), success: {[weak self] (response) in
+                guard let weakSelf = self else{
+                    return
+                }
+                if let model = BaseModel.getModel(data: response),model.code == 200,let item = model.data as? Dictionary<String,Any>{
+                    let datas = item["data"]
+                    weakSelf.setupData(data: datas)
+                    RD_DBManager.share.updateNovelList(data: datas)
+                }
+                MyLog(response)
+
+            }) { (error) in
+                MyLog(error)
+            }
+
+        }
+//        RD_DBManager.getNovelList(novel_id: item.id) {[weak self] (data) in
+//            guard let weakSelf = self else{
+//                return
+//            }
+//
+//            if let items = data as? Array<Any>{
+//                weakSelf.setupData(data: items)
+//            }else{
+//            }
+//        }
     }
     
     
@@ -158,7 +181,7 @@ extension NovelListVC{
                 }
                 models.append(model)
             }
-            self.listModels = models
+            readModel?.setListModels(models: models)
             self.tableView.reloadData()
         }
 

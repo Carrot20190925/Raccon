@@ -69,6 +69,19 @@
 		08089A4F23B09BA800AEEB52 /* RDCountryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08089A4D23B09BA800AEEB52 /* RDCountryCell.xib */; };
 		08089A5123B0A7E600AEEB52 /* BaseTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08089A5023B0A7E600AEEB52 /* BaseTableController.swift */; };
 		08089A5323B0DCBA00AEEB52 /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08089A5223B0DCBA00AEEB52 /* BaseModel.swift */; };
+		0870DA0423B37711005A50E1 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0870DA0223B37711005A50E1 /* String+Extension.swift */; };
+		0870DA0523B37711005A50E1 /* UIPageViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0870DA0323B37711005A50E1 /* UIPageViewController+Extension.swift */; };
+		0870DA0923B3791A005A50E1 /* ReadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0870DA0823B3791A005A50E1 /* ReadVC.swift */; };
+		0870DA0C23B37986005A50E1 /* ReadModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0870DA0B23B37986005A50E1 /* ReadModel.swift */; };
+		0870DA0E23B3831D005A50E1 /* ReadConfigModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0870DA0D23B3831D005A50E1 /* ReadConfigModel.swift */; };
+		0870DA1023B45BE0005A50E1 /* RD_UI_Adapt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0870DA0F23B45BE0005A50E1 /* RD_UI_Adapt.swift */; };
+		0870DA1523B470E6005A50E1 /* DZMKeyedArchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0870DA1223B470E6005A50E1 /* DZMKeyedArchiver.swift */; };
+		0870DA1623B470E6005A50E1 /* DZMCoreText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0870DA1323B470E6005A50E1 /* DZMCoreText.swift */; };
+		0870DA1723B470E6005A50E1 /* DZMUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0870DA1423B470E6005A50E1 /* DZMUserDefaults.swift */; };
+		0870DA1923B47653005A50E1 /* DZMPublic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0870DA1823B47653005A50E1 /* DZMPublic.swift */; };
+		0870DA1B23B47920005A50E1 /* DZMSpaceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0870DA1A23B47920005A50E1 /* DZMSpaceList.swift */; };
+		0870DA1D23B48BC1005A50E1 /* ReadContentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0870DA1C23B48BC1005A50E1 /* ReadContentVC.swift */; };
+		0870DA2023B48CA0005A50E1 /* DZMReadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0870DA1F23B48CA0005A50E1 /* DZMReadView.swift */; };
 		D04051D1E09B7A74FF6C8082 /* Pods_RaccoonDog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4D2D4B7828614FEAAC0507B /* Pods_RaccoonDog.framework */; };
 /* End PBXBuildFile section */
 
@@ -142,6 +155,19 @@
 		08089A4D23B09BA800AEEB52 /* RDCountryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RDCountryCell.xib; sourceTree = "<group>"; };
 		08089A5023B0A7E600AEEB52 /* BaseTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableController.swift; sourceTree = "<group>"; };
 		08089A5223B0DCBA00AEEB52 /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
+		0870DA0223B37711005A50E1 /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		0870DA0323B37711005A50E1 /* UIPageViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIPageViewController+Extension.swift"; sourceTree = "<group>"; };
+		0870DA0823B3791A005A50E1 /* ReadVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadVC.swift; sourceTree = "<group>"; };
+		0870DA0B23B37986005A50E1 /* ReadModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadModel.swift; sourceTree = "<group>"; };
+		0870DA0D23B3831D005A50E1 /* ReadConfigModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadConfigModel.swift; sourceTree = "<group>"; };
+		0870DA0F23B45BE0005A50E1 /* RD_UI_Adapt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RD_UI_Adapt.swift; sourceTree = "<group>"; };
+		0870DA1223B470E6005A50E1 /* DZMKeyedArchiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DZMKeyedArchiver.swift; sourceTree = "<group>"; };
+		0870DA1323B470E6005A50E1 /* DZMCoreText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DZMCoreText.swift; sourceTree = "<group>"; };
+		0870DA1423B470E6005A50E1 /* DZMUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DZMUserDefaults.swift; sourceTree = "<group>"; };
+		0870DA1823B47653005A50E1 /* DZMPublic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DZMPublic.swift; sourceTree = "<group>"; };
+		0870DA1A23B47920005A50E1 /* DZMSpaceList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DZMSpaceList.swift; sourceTree = "<group>"; };
+		0870DA1C23B48BC1005A50E1 /* ReadContentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadContentVC.swift; sourceTree = "<group>"; };
+		0870DA1F23B48CA0005A50E1 /* DZMReadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DZMReadView.swift; sourceTree = "<group>"; };
 		7A78775CBE1D0E302E747DD5 /* Pods-RaccoonDog.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RaccoonDog.release.xcconfig"; path = "Target Support Files/Pods-RaccoonDog/Pods-RaccoonDog.release.xcconfig"; sourceTree = "<group>"; };
 		B102333149F6818C6FC25506 /* Pods-RaccoonDog.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RaccoonDog.debug.xcconfig"; path = "Target Support Files/Pods-RaccoonDog/Pods-RaccoonDog.debug.xcconfig"; sourceTree = "<group>"; };
 		E4D2D4B7828614FEAAC0507B /* Pods_RaccoonDog.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RaccoonDog.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -271,6 +297,8 @@
 		080899DE23AF34E700AEEB52 /* MainProject */ = {
 			isa = PBXGroup;
 			children = (
+				0870DA0623B378FA005A50E1 /* ReadModule */,
+				0870DA0123B37711005A50E1 /* Extension */,
 				08089A0423AF4CA100AEEB52 /* NetManager */,
 				080899F423AF45D000AEEB52 /* Util */,
 				080899DF23AF34E700AEEB52 /* RegisterAndLogin */,
@@ -340,6 +368,7 @@
 				080600CF23B22466008FB260 /* RDKingfisherManager.swift */,
 				080600D123B2FFC6008FB260 /* RD_DBManager.swift */,
 				0807503B23B3524B00D7BB36 /* ContentMananger.swift */,
+				0870DA0F23B45BE0005A50E1 /* RD_UI_Adapt.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -370,6 +399,64 @@
 				08089A4D23B09BA800AEEB52 /* RDCountryCell.xib */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		0870DA0123B37711005A50E1 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				0870DA0223B37711005A50E1 /* String+Extension.swift */,
+				0870DA0323B37711005A50E1 /* UIPageViewController+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		0870DA0623B378FA005A50E1 /* ReadModule */ = {
+			isa = PBXGroup;
+			children = (
+				0870DA1E23B48CA0005A50E1 /* Views */,
+				0870DA1123B470E6005A50E1 /* custom */,
+				0870DA0A23B37930005A50E1 /* Models */,
+				0870DA0723B378FA005A50E1 /* Controllers */,
+			);
+			path = ReadModule;
+			sourceTree = "<group>";
+		};
+		0870DA0723B378FA005A50E1 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0870DA0823B3791A005A50E1 /* ReadVC.swift */,
+				0870DA1C23B48BC1005A50E1 /* ReadContentVC.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		0870DA0A23B37930005A50E1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0870DA0B23B37986005A50E1 /* ReadModel.swift */,
+				0870DA0D23B3831D005A50E1 /* ReadConfigModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		0870DA1123B470E6005A50E1 /* custom */ = {
+			isa = PBXGroup;
+			children = (
+				0870DA1A23B47920005A50E1 /* DZMSpaceList.swift */,
+				0870DA1823B47653005A50E1 /* DZMPublic.swift */,
+				0870DA1223B470E6005A50E1 /* DZMKeyedArchiver.swift */,
+				0870DA1323B470E6005A50E1 /* DZMCoreText.swift */,
+				0870DA1423B470E6005A50E1 /* DZMUserDefaults.swift */,
+			);
+			path = custom;
+			sourceTree = "<group>";
+		};
+		0870DA1E23B48CA0005A50E1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0870DA1F23B48CA0005A50E1 /* DZMReadView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		4EFDD289CD4EE88D8BC88070 /* Frameworks */ = {
@@ -554,11 +641,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0870DA2023B48CA0005A50E1 /* DZMReadView.swift in Sources */,
 				080600B323B1D9C0008FB260 /* MineVC.swift in Sources */,
 				080899E623AF355000AEEB52 /* RDRegisterController.swift in Sources */,
 				08089A1A23AF4FF200AEEB52 /* RDRequest.swift in Sources */,
+				0870DA0C23B37986005A50E1 /* ReadModel.swift in Sources */,
 				08089A2923AF8DEB00AEEB52 /* RDSeverApi.swift in Sources */,
 				080899F323AF43FB00AEEB52 /* BaseNavigationController.swift in Sources */,
+				0870DA0523B37711005A50E1 /* UIPageViewController+Extension.swift in Sources */,
 				080600B723B1E400008FB260 /* BaseCollectionVC.swift in Sources */,
 				080600D423B30F5F008FB260 /* NovelChapterModel.swift in Sources */,
 				08089A2223AF802000AEEB52 /* Tool.swift in Sources */,
@@ -568,6 +658,7 @@
 				080899CE23AF196300AEEB52 /* ViewController.swift in Sources */,
 				08089A2723AF8CB000AEEB52 /* RDConfig.swift in Sources */,
 				08089A5323B0DCBA00AEEB52 /* BaseModel.swift in Sources */,
+				0870DA0923B3791A005A50E1 /* ReadVC.swift in Sources */,
 				080600D623B340F4008FB260 /* NovelListVC.swift in Sources */,
 				08089A4E23B09BA800AEEB52 /* RDCountryCell.swift in Sources */,
 				08089A2B23B0681E00AEEB52 /* TXTheme.swift in Sources */,
@@ -576,11 +667,15 @@
 				080899F123AF43DC00AEEB52 /* BaseTabBarController.swift in Sources */,
 				080600BF23B1E49B008FB260 /* BaseTableCell.swift in Sources */,
 				080600CB23B1FF02008FB260 /* RDBookShelfVC.swift in Sources */,
+				0870DA0E23B3831D005A50E1 /* ReadConfigModel.swift in Sources */,
 				080600B123B1D9B7008FB260 /* DiscoverVC.swift in Sources */,
 				08089A2D23B069C800AEEB52 /* String+SSK.swift in Sources */,
+				0870DA1D23B48BC1005A50E1 /* ReadContentVC.swift in Sources */,
 				080600AF23B1D95A008FB260 /* BookStoreVC.swift in Sources */,
 				080600C723B1F98C008FB260 /* RDRequesFactory.swift in Sources */,
 				08089A3D23B08AA400AEEB52 /* RDContryCodeVC.swift in Sources */,
+				0870DA1723B470E6005A50E1 /* DZMUserDefaults.swift in Sources */,
+				0870DA1523B470E6005A50E1 /* DZMKeyedArchiver.swift in Sources */,
 				080600C923B1FD78008FB260 /* RDBookNetManager.swift in Sources */,
 				080899E323AF350D00AEEB52 /* BaseController.swift in Sources */,
 				080600B923B1E41D008FB260 /* BookStoreListVC.swift in Sources */,
@@ -590,12 +685,17 @@
 				080600C123B1E4B9008FB260 /* BaseCollectionCell.swift in Sources */,
 				080600CE23B21723008FB260 /* BookShelfModel.swift in Sources */,
 				08089A5123B0A7E600AEEB52 /* BaseTableController.swift in Sources */,
+				0870DA1023B45BE0005A50E1 /* RD_UI_Adapt.swift in Sources */,
 				080899CA23AF196300AEEB52 /* AppDelegate.swift in Sources */,
 				080600D223B2FFC6008FB260 /* RD_DBManager.swift in Sources */,
 				08089A4323B08BEB00AEEB52 /* NSObject+OWS.m in Sources */,
 				080600C323B1E4DF008FB260 /* BaseReusableView.swift in Sources */,
 				080899EA23AF356000AEEB52 /* RDLoginController.swift in Sources */,
+				0870DA1923B47653005A50E1 /* DZMPublic.swift in Sources */,
 				08089A1E23AF620700AEEB52 /* RDAccountManager.swift in Sources */,
+				0870DA0423B37711005A50E1 /* String+Extension.swift in Sources */,
+				0870DA1B23B47920005A50E1 /* DZMSpaceList.swift in Sources */,
+				0870DA1623B470E6005A50E1 /* DZMCoreText.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

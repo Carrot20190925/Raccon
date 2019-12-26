@@ -72,20 +72,9 @@ class RDBookShelfVC: BaseCollectionVC {
         
         let item = self.shelfBooks[indexPath.row]
         let novelListVC = NovelListVC.init()
-        novelListVC.novel_id = item.id
+        novelListVC.bookItem = item
         self.navigationController?.pushViewController(novelListVC, animated: true)
-//        RD_DBManager.getNovelList(novel_id: item.id) { (data) in
-//            var models : [NovelChapterModel] = []
-//            if let items = data as? Array<Any>{
-//                for item in items {
-//                    guard let model = NovelChapterModel.getModel(data: item)  else {
-//                        continue
-//                    }
-//                    models.append(model)
-//                }
-//            }
-//            MyLog(data)
-        }
+    }
 
 
 

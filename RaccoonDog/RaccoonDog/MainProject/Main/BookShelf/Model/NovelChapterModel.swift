@@ -53,6 +53,23 @@ class NovelChapterModel {
         
         
     }
+    
+    func save()  {
+        var data : Dictionary <String,Any>  = [:]
+        data["chapter_no"] = chapter_no
+        data["novel_id"] = novel_id
+        if let chapter_title = self.chapter_title{
+            data["chapter_title"] = chapter_title
+        }
+        if let chapter_content = self.chapter_content{
+            data["chapter_content"] = chapter_content
+        }
+        data["id"] = id
+        data["volume"] = volume
+        data["isRead"] = isRead
+        data["isCurrentRead"] = isCurrentRead
+        RD_DBManager.share.updateNovelList(data: data)
+    }
 }
 //"chapter_content": "http://10.10.35.201:8081/api/v1/TestNovelContent",
 //"chapter_no": 1,

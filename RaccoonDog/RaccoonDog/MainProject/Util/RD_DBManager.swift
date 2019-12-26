@@ -19,6 +19,7 @@ class RD_DBManager {
     
     var databasePath : String?
     var dbQueue : FMDatabaseQueue?
+    var db : FMDatabase?
     static let share = RD_DBManager.init()
     private init(){
         self.initTables()
@@ -53,6 +54,19 @@ class RD_DBManager {
             let queue = FMDatabaseQueue.init(path: path)
             self.dbQueue = queue
             return queue;
+        }
+        return nil
+    }
+    
+    private func getDB() -> FMDatabase?{
+        if let db = self.db {
+            return db
+        }
+        if var path = self.getDatabasePath(){
+            path = "\(path)/database.sqlite"
+            let db = FMDatabase.init(path: path)
+            self.db = db
+            return db;
         }
         return nil
     }
@@ -92,17 +106,19 @@ class RD_DBManager {
             let created_at = item["created_at"] as? String
             let id = item["id"] as? Int
             let volume = item["volume"] as? Int
+            let isRead = item["isRead"] as? Bool
+            let isCurrentRead = item["isCurrentRead"] as? Bool
             if  let result = try? db.executeQuery(sql, values: [novel_chapter_id]){
                 if result.next(){
-                    let sql = "update novel_list set chapter_id = \(id ?? 0),novel_id = \(novel_id),chapter_content = \(chapter_content ?? ""),chapter_title = \(chapter_title ?? ""),created_at = \(created_at ?? ""),volume = \(volume ?? 0),chapter_no = \(chapter_no) where novel_chapter_id = \(novel_chapter_id) ;"
+                    let sql = "update novel_list set chapter_id = \(id ?? 0),novel_id = \(novel_id),chapter_content = \(chapter_content ?? ""),chapter_title = \(chapter_title ?? ""),created_at = \(created_at ?? ""),volume = \(volume ?? 0),chapter_no = \(chapter_no),isRead = \(isRead ?? false),isCurrentRead = \(isCurrentRead ?? false) where novel_chapter_id = \(novel_chapter_id) ;"
                     db.executeUpdate(sql, withArgumentsIn: [])
                 }else{
-                    let sql = "insert into novel_list (novel_chapter_id,chapter_id,novel_id,chapter_content,chapter_title,created_at,volume,chapter_no) values(?,?,?,?,?,?,?,?) ;"
-                    db.executeUpdate(sql, withArgumentsIn: [novel_chapter_id,id ?? 0,novel_id,chapter_content ?? "",chapter_title ?? "",created_at ?? "",volume ?? 0,chapter_no])
+                    let sql = "insert into novel_list (novel_chapter_id,chapter_id,novel_id,chapter_content,chapter_title,created_at,volume,chapter_no,isRead,isCurrentRead) values(?,?,?,?,?,?,?,?,?,?) ;"
+                    db.executeUpdate(sql, withArgumentsIn: [novel_chapter_id,id ?? 0,novel_id,chapter_content ?? "",chapter_title ?? "",created_at ?? "",volume ?? 0,chapter_no,isRead ?? false,isCurrentRead ?? false])
                 }
             }else{
-                let sql = "insert into novel_list (novel_chapter_id,chapter_id,novel_id,chapter_content,chapter_title,created_at,volume,chapter_no) values(?,?,?,?,?,?,?,?) ;"
-                db.executeUpdate(sql, withArgumentsIn: [novel_chapter_id,id ?? 0,novel_id,chapter_content ?? "",chapter_title ?? "",created_at ?? "",volume ?? 0,chapter_no])
+                let sql = "insert into novel_list (novel_chapter_id,chapter_id,novel_id,chapter_content,chapter_title,created_at,volume,chapter_no,isRead,isCurrentRead) values(?,?,?,?,?,?,?,?,?,?) ;"
+                db.executeUpdate(sql, withArgumentsIn: [novel_chapter_id,id ?? 0,novel_id,chapter_content ?? "",chapter_title ?? "",created_at ?? "",volume ?? 0,chapter_no,isRead ?? false,isCurrentRead ?? false])
             }
         })
     }
@@ -139,6 +155,40 @@ class RD_DBManager {
             }
             
         })
+    }
+    
+    
+    static func getSyncNovelList(novel_id : Int) -> [Any]?{
+        let sql = "select * from novel_list where novel_id = \(novel_id)"
+        if let result = RD_DBManager.share.getDB()?.executeQuery(sql, withArgumentsIn: []){
+            var datas : [Dictionary <String,Any?>] = []
+            while result.next(){
+                let novel_id = result.long(forColumn: "novel_id")
+                let id = result.long(forColumn: "chapter_id")
+                let chapter_no = result.long(forColumn: "chapter_no")
+                let chapter_content = result.string(forColumn: "chapter_content")
+                let chapter_title = result.string(forColumn: "chapter_title")
+                let created_at = result.string(forColumn: "created_at")
+                let volume = result.long(forColumn: "volume")
+                let isRead = result.bool(forColumn: "isRead")
+                let isCurrentRead = result.bool(forColumn: "isCurrentRead")
+                
+                let data = ["novel_id":novel_id,
+                            "id":id,
+                            "chapter_no":chapter_no,
+                            "chapter_content":chapter_content,
+                            "chapter_title":chapter_title,
+                            "created_at":created_at,
+                            "volume":volume,
+                            "isRead":isRead,
+                            "isCurrentRead":isCurrentRead
+                    ] as [String : Any?]
+                datas.append(data)
+            }
+            return datas
+        }
+        return nil
+
     }
     
     //MARK:-  获取数据

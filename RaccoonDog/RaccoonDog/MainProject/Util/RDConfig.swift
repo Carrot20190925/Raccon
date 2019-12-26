@@ -9,8 +9,6 @@
 import Foundation
 let RD_Base_Server_Url = "http://10.10.35.201:8081/api/v1"
 
-let rScreenWidth = UIScreen.main.bounds.size.width
-let rScreenHeight = UIScreen.main.bounds.size.height
 
 @_exported import RxSwift
 @_exported import SnapKit
@@ -19,9 +17,6 @@ let rScreenHeight = UIScreen.main.bounds.size.height
 @_exported import MJRefresh
 @_exported import MJExtension
 @_exported import RxCocoa
-//@_exported import Kingfisher
-
-//@_exported import
 
 
 
