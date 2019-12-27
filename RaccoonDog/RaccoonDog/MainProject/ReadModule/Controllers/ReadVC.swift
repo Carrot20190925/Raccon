@@ -9,7 +9,8 @@
 import UIKit
 
 class ReadVC: BaseController {
-
+    let topView = ReadTopView.init(frame: CGRect.init(x: 0, y: -NavgationBarHeight, width: rScreenWidth, height: NavgationBarHeight))
+    var showMenu = false
     /// 用于区分正反面的值(勿动)
     var tempNumber:Int = 1
     var contentView : UIView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: rScreenWidth, height: rScreenHeight))
@@ -18,11 +19,21 @@ class ReadVC: BaseController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.initMenu()
+        self.contentView.addSubview(self.topView)
         self.view.addSubview(contentView)
         self.updateReadController()
+        self.addSingleTap()
         
         // Do any additional setup after loading the view.
     }
+    
+    
+    
+
+    
+    
+    
     
     func updateReadController()  {
         switch ReadConfigModel.shared().effectType {
@@ -43,6 +54,7 @@ class ReadVC: BaseController {
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        self.readModel.currentReadModel.save()
         self.navigationController?.setNavigationBarHidden(false, animated: false)
 
     }
@@ -122,8 +134,10 @@ extension ReadVC:UIPageViewControllerDelegate,UIPageViewControllerDataSource{
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         
         // 记录
-//        let  currentDisplayController = pageViewController.viewControllers?.first as? ReadContentVC
+        let  currentDisplayController = pageViewController.viewControllers?.first as? ReadContentVC
         
+        readModel.currentReadModel =  currentDisplayController?.currentReadModel
+//        readModel.currentReadModel.save()
         // 更新阅读记录
 //        updateReadRecord(controller: currentDisplayController)
     }
@@ -169,6 +183,9 @@ extension ReadVC:UIPageViewControllerDelegate,UIPageViewControllerDataSource{
 extension ReadVC{
     func getReadContentVC(currentReadModel : ParserReadModel!) -> ReadContentVC? {
         if currentReadModel != nil{
+            if  currentReadModel.pageModels.count == 0{
+                return nil
+            }
             let controller = ReadContentVC.init()
             controller.currentReadModel = currentReadModel
             return controller
@@ -183,7 +200,7 @@ extension ReadVC{
         // 阅读记录为空
         if recordModel.pageModels.count == 0 { return nil }
         
-        let recordModel = recordModel.copy()
+        let recordModel = recordModel.copy() as! ParserReadModel
         // 第一章 第一页
         if recordModel.isFirstChapter && recordModel.isFirstPage {
             
@@ -195,7 +212,7 @@ extension ReadVC{
         // 第一页
         if recordModel.isFirstPage {
             self.readModel.currentReadModel = recordModel.previousModel
-            recordModel.previousModel?.page = (recordModel.previousModel?.pageModels.count ?? 1) - 1
+            recordModel.previousModel?.page = NSNumber.init(value: (recordModel.previousModel?.pageModels.count ?? 1) - 1)
             return recordModel.previousModel
             
         }else{ recordModel.previousPage() }
@@ -221,7 +238,7 @@ extension ReadVC{
             return nil
         }
         
-        let recordModel = recordModel.copy()
+        let recordModel = recordModel.copy() as! ParserReadModel
         
         // 最后一页
         if recordModel.isLastPage {
@@ -231,5 +248,43 @@ extension ReadVC{
         }else{ recordModel.nextPage() }
         
         return recordModel
+    }
+}
+
+extension ReadVC:UIGestureRecognizerDelegate{
+    //MARK:-  增加手势
+    func addSingleTap() {
+                // 单击手势
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(touchSingleTap))
+        singleTap.numberOfTapsRequired = 1
+        singleTap.delegate = self
+        self.contentView.addGestureRecognizer(singleTap)
+    }
+    
+    
+    @objc func touchSingleTap(){
+        self.showMenu = !self.showMenu
+        if self.showMenu {
+            UIView.animate(withDuration: 0.25) {
+                self.topView.mj_y = 0
+            }
+        }else{
+            UIView.animate(withDuration: 0.25) {
+                self.topView.mj_y = -self.topView.mj_h
+            }
+        }
+        
+    }
+    
+}
+
+
+//MARK:-  菜单协议
+extension ReadVC : ReadMenuProtocol{
+    func initMenu()  {
+        self.topView.delegate = self;
+    }
+    func backAction() {
+        self.navigationController?.popViewController(animated: true)
     }
 }

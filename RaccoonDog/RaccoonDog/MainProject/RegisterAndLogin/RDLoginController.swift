@@ -99,6 +99,11 @@ class RDLoginController: BaseController {
                         RDAccountManager.share.saveCurrentAccount(account: account)
                     }
                     weakSelf.view.makeToast(RD_localized("登录成功", ""), duration: 1.0, point: CGPoint.init(x: rScreenWidth * 0.5, y: rScreenHeight*0.5), title: nil, image: nil, style: toastStyle, completion: nil)
+                    if let widown = UIApplication.shared.keyWindow {
+                        widown.rootViewController = BaseTabBarController.init()
+                        widown.makeKeyAndVisible()
+                        return
+                    }
 
                 }else{
                     weakSelf.view.makeToast(model.message, duration: 1.0, point: CGPoint.init(x: rScreenWidth * 0.5, y: rScreenHeight*0.5), title: RD_localized("登录失败", ""), image: nil, style: toastStyle, completion: nil)

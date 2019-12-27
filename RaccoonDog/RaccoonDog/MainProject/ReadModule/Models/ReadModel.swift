@@ -17,7 +17,7 @@ let RD_Read_Height = rScreenHeight - RD_Read_ContentY - 30
 let RD_READ_BOOK_HOME_PAGE = -1
 
 class ReadModel {
-    var bookId : Int!
+    var bookId : Int = 0
     var bookName : String?
     var bookAuthor : String?
     var bookCategoryId : Int?
@@ -25,17 +25,28 @@ class ReadModel {
     
     var currentReadModel : ParserReadModel!{
         didSet{
-            let index = currentReadModel.index
+
+            
+            if listModels.count == 0 {
+                return
+            }
+            let index = currentReadModel.index.intValue
             let models = listModels
             if index > 0,let pre = models[index - 1] as NovelChapterModel?{
-                let preModel = ParserReadModel.getModel(url: pre.chapter_content, chapter_no: pre.chapter_no, novel_id: pre.novel_id, title: pre.chapter_title)
-                preModel.index = index - 1
-                currentReadModel.previousModel = preModel
+                if currentReadModel.previousModel == nil {
+                    let preModel = ParserReadModel.getModel(url: pre.chapter_content, chapter_no: pre.chapter_no, novel_id: pre.novel_id, title: pre.chapter_title)
+                    preModel.index = NSNumber.init(value: index - 1)
+                    currentReadModel.previousModel = preModel
+                }
+
             }
-            if (index + 1) < (models.count - 1),let next = models[index + 1] as NovelChapterModel?{
-                let nextModel = ParserReadModel.getModel(url: next.chapter_content, chapter_no: next.chapter_no, novel_id: next.novel_id, title: next.chapter_title)
-                nextModel.index = index + 1
-                currentReadModel.nextModel = nextModel
+            if (index + 1) < (models.count),let next = models[index + 1] as NovelChapterModel?{
+                if currentReadModel.nextModel == nil {
+                    let nextModel = ParserReadModel.getModel(url: next.chapter_content, chapter_no: next.chapter_no, novel_id: next.novel_id, title: next.chapter_title)
+                    nextModel.index = NSNumber.init(value: index + 1)
+                    currentReadModel.nextModel = nextModel
+                }
+
             }
         }
     }
@@ -43,14 +54,18 @@ class ReadModel {
     
     init(bookId:Int) {
         self.bookId = bookId
+        self.getCurrentModel()
     }
     
     func setListModels(models : [NovelChapterModel]) {
         listModels = models
+        if currentReadModel != nil {
+            return;
+        }
         for (index,item) in models.enumerated(){
             if item.isCurrentRead {
                 let currentModel = ParserReadModel.getModel(url: item.chapter_content, chapter_no: item.chapter_no, novel_id: item.novel_id, title: item.chapter_title)
-                currentModel.index = index
+                currentModel.index = NSNumber.init(value: index) 
                 self.currentReadModel = currentModel
 
                 return
@@ -67,19 +82,27 @@ class ReadModel {
         }
     }
     
+    func getCurrentModel() {
+        if let recodeModel = DZMKeyedArchiver.unarchiver(folderName: "\(self.bookId)", fileName: "\(self.bookId)") as? ParserReadModel{
+            self.currentReadModel = recodeModel
+        }
+    }
     
 }
 
 
-class ParserReadModel {
+class ParserReadModel:NSObject,NSSecureCoding,NSCopying {
+
+    static var supportsSecureCoding: Bool = true
     
-    var novel_id : Int = 0
-    var index = 0
-    var chpater_no = 0
+    var novel_id  = NSNumber.init(value: 0)
+    var index  = NSNumber.init(value: 0)
+    var chpater_no = NSNumber.init(value: 0)
     var pageModels : [RDReadPageModel] = []
     var url : String?
-
-    var page = 0
+    var location : NSNumber = NSNumber.init(value: 0)
+    
+    var page = NSNumber.init(value: 0)
     //上一章
     var previousModel : ParserReadModel?
     //下一章
@@ -89,33 +112,75 @@ class ParserReadModel {
     
     var fullAttrText : NSAttributedString?
     
+    var ranges : [NSRange] = []
+    
     
     var fullText : String?
     
     
-    func copy() -> ParserReadModel {
-        let item = ParserReadModel.init(novel_id: self.novel_id, chapter_no: self.chpater_no, url: self.url)
+    func copy(with zone: NSZone? = nil) -> Any {
+        let item = ParserReadModel.init(novel_id: self.novel_id.intValue, chapter_no: self.chpater_no.intValue, url: self.url)
+
         item.index = self.index
         item.title = self.title
         item.page = self.page
         item.fullText = self.fullText
-        item.fullAttrText = self.fullAttrText
         item.previousModel = self.previousModel
         item.nextModel = self.nextModel
         item.pageModels = self.pageModels
+        item.ranges = self.ranges
+        item.location = self.location
         return item
     }
     
+    func encode(with coder: NSCoder) {
+        coder.encode(novel_id, forKey: "novel_id")
+        coder.encode(index, forKey: "index")
+        coder.encode(chpater_no, forKey: "chpater_no")
+        coder.encode(url, forKey: "url")
+        coder.encode(previousModel, forKey: "previousModel")
+        coder.encode(nextModel, forKey: "nextModel")
+        coder.encode(title, forKey: "title")
+        coder.encode(fullText, forKey: "fullText")
+        coder.encode(location, forKey: "location")
+        coder.encode(page, forKey: "page")
+
+
+    }
+    
+    required init?(coder: NSCoder) {
+        novel_id = coder.decodeObject(forKey: "novel_id") as? NSNumber ?? 0
+        index = coder.decodeObject(forKey: "index") as? NSNumber ?? 0
+        chpater_no = coder.decodeObject(forKey: "chpater_no") as? NSNumber ?? 0
+        url = coder.decodeObject(forKey: "url") as? String
+        previousModel = coder.decodeObject(forKey: "previousModel") as? ParserReadModel
+        nextModel = coder.decodeObject(forKey: "nextModel") as? ParserReadModel
+        title = coder.decodeObject(forKey: "title") as? String
+        fullText = coder.decodeObject(forKey: "fullText") as? String
+        location = coder.decodeObject(forKey: "location") as? NSNumber ?? NSNumber.init(value: 0)
+        page = coder.decodeObject(forKey: "page") as? NSNumber ?? 0
+
+        super.init()
+        self.parserModel()
+    }
+    
+    
+    
+    
+
+    
+
+    
     //MARK:-  前一页
     func previousPage(){
-        if page > 0 {
-            page = page - 1
+        if page.intValue > 0 {
+            page = NSNumber.init(value: page.intValue - 1)
         }
     }
     //MARK:-  后一页
     func nextPage() {
-        if page < (pageModels.count - 1) {
-            page = page + 1
+        if page.intValue < (pageModels.count - 1) {
+            page = NSNumber.init(value:  page.intValue + 1)
         }
     }
     
@@ -139,7 +204,7 @@ class ParserReadModel {
     }
     
     ///是否是最后一页
-    var isLastPage : Bool! { return (pageModels.count == 0 || page == pageModels.count - 1) }
+    var isLastPage : Bool! { return (pageModels.count == 0 || page.intValue == pageModels.count - 1) }
     
 
     
@@ -150,8 +215,8 @@ class ParserReadModel {
     }
     
     private init(novel_id : Int,chapter_no:Int,url:String?) {
-        self.novel_id = novel_id
-        self.chpater_no = chapter_no
+        self.novel_id = NSNumber.init(value: novel_id)
+        self.chpater_no = NSNumber.init(value: chapter_no)
         self.url = url
 
         
@@ -164,7 +229,7 @@ class ParserReadModel {
             model.setFullText(fullText: content)
         }else{
             if let urlString = url{
-                RDBookNetManager.novelChapterContentNetWork(url:urlString, success: { (response) in
+                RDBookNetManager.novelChapterContentNetWork(url:RD_Base_Server_Url + "/TestNovelContent", success: { (response) in
                     if let content = response as? String{
                         model.setFullText(fullText: content)
                         ContentManager.share.saveContent(chapter_no: chapter_no, novel_id: novel_id, content: content)
@@ -189,7 +254,7 @@ class ParserReadModel {
         let ranges = DZMCoreText.GetPageingRanges(attrString: fullAttr, rect: rect  )
         self.pageModels.removeAll()
         if !ranges.isEmpty {
-            self.pageModels = ParserReadModel.pageing(attrString: fullAttr, rect: rect, isFirstChapter: index == 0)
+            self.pageModels = self.pageing(attrString: fullAttr, rect: rect, isFirstChapter: index == 0)
         }
         
     }
@@ -204,7 +269,7 @@ class ParserReadModel {
     ///   - rect: 显示范围
     ///   - isFirstChapter: 是否为本文章第一个展示章节,如果是则加入书籍首页。(小技巧:如果不需要书籍首页,可不用传,默认就是不带书籍首页)
     /// - Returns: 内容分页列表
-    class func pageing(attrString:NSAttributedString, rect:CGRect, isFirstChapter:Bool = false) ->[RDReadPageModel] {
+    func pageing(attrString:NSAttributedString, rect:CGRect, isFirstChapter:Bool = false) ->[RDReadPageModel] {
         
         var pageModels:[RDReadPageModel] = []
 //        
@@ -222,13 +287,15 @@ class ParserReadModel {
         let ranges = DZMCoreText.GetPageingRanges(attrString: attrString, rect: rect)
         
         if !ranges.isEmpty {
-            
+            self.ranges = ranges
             let count = ranges.count
-            
+
             for i in 0..<count {
                 
                 let range = ranges[i]
-                
+                if location.intValue >= range.location,location.intValue <= range.location + range.length  {
+                    self.page = NSNumber.init(value: i)
+                }
                 let pageModel = RDReadPageModel()
                 
                 let content = attrString.attributedSubstring(from: range)
@@ -268,6 +335,19 @@ class ParserReadModel {
         
         return titleString
     }
+    
+    
+    
+    
+    
+    func save() {
+        //记录阅读位置
+        if page.intValue < (self.ranges.count - 1) {
+            self.location = NSNumber.init(value: self.ranges[page.intValue].location)
+        }
+        DZMKeyedArchiver.archiver(folderName: "\(self.novel_id)", fileName: "\(self.novel_id)", object: self)
+    }
+    
     
     
     

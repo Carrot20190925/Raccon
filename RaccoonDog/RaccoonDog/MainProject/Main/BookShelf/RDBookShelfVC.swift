@@ -129,7 +129,8 @@ extension RDBookShelfVC{
             }
             self?.collectionView.mj_header?.endRefreshing()
             MyLog(response)
-        }) { (error) in
+        }) {[weak self] (error) in
+            self?.collectionView.mj_header?.endRefreshing()
             MyLog(error)
         }
     }

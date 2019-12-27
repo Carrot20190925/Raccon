@@ -28,6 +28,10 @@ class NovelListVC: BaseTableController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.tableView.reloadData()
+    }
 
     // MARK: - Table view data source
 
@@ -45,6 +49,12 @@ class NovelListVC: BaseTableController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! BaseTableCell
         cell.textLabel?.text = readModel?.listModels[indexPath.row].chapter_title
+        if readModel?.currentReadModel.index.intValue == indexPath.row {
+            cell.textLabel?.textColor = TXTheme.secondColor()
+        }else{
+            cell.textLabel?.textColor = TXTheme.fifthColor()
+
+        }
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -52,8 +62,8 @@ class NovelListVC: BaseTableController {
         guard let readModel = self.readModel else {
             return
         }
-        if indexPath.row != readModel.currentReadModel.index {
-            if var read = readModel.listModels[readModel.currentReadModel.index] as? NovelChapterModel{
+        if indexPath.row != readModel.currentReadModel.index.intValue {
+            if var read = readModel.listModels[readModel.currentReadModel.index.intValue] as? NovelChapterModel{
                 read.isCurrentRead = false
                 read.save()
                 read = readModel.listModels[indexPath.row]
@@ -61,16 +71,38 @@ class NovelListVC: BaseTableController {
                 read.isRead = true
                 read.save()
                 let currentModel = ParserReadModel.getModel(url: read.chapter_content, chapter_no: read.chapter_no, novel_id: read.novel_id, title: read.chapter_title)
-                currentModel.index = indexPath.row
+                currentModel.index = NSNumber.init(value: indexPath.row) 
                 self.readModel?.currentReadModel =  currentModel
 
             }
         }
         
-        let readvc = ReadVC.init()
-        readvc.readModel = readModel
+        if self.readModel?.currentReadModel.pageModels.count ?? 0 > 0 {
+            let readvc = ReadVC.init()
+            readvc.readModel = readModel
+            self.navigationController?.pushViewController(readvc, animated: true)
+        }else{
+            
+            if let urlString = self.readModel?.currentReadModel.url{
+                RDBookNetManager.novelChapterContentNetWork(url:RD_Base_Server_Url + "/TestNovelContent", success: {[weak self] (response) in
+                    if let content = response as? String{
+                        let readvc = ReadVC.init()
+                        readvc.readModel = readModel
+                        self?.readModel?.currentReadModel.setFullText(fullText: content)
+                        self?.navigationController?.pushViewController(readvc, animated: true)
+                    }
+                    MyLog(response)
+                    
+                }) { (error) in
+                    MyLog(error)
+                }
+            }
+
+        }
         
-        self.navigationController?.pushViewController(readvc, animated: true)
+        
+        
+
 
 
     }
@@ -140,7 +172,7 @@ extension NovelListVC{
         readModel = ReadModel.init(bookId: item.id)
         readModel?.bookName = self.bookItem?.title
         readModel?.bookAuthor = self.bookItem?.author
-        if let items = RD_DBManager.getSyncNovelList(novel_id: item.id){
+        if let items = RD_DBManager.getSyncNovelList(novel_id: item.id),items.count > 0{
             self.setupData(data: items)
         }else{
             RDBookNetManager.novelChapterNetWork(novel_id: String.init(item.id), success: {[weak self] (response) in

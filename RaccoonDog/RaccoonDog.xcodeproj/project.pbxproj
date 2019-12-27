@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0805BD7023B5B1A30075E96B /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0805BD6F23B5B1A30075E96B /* BaseView.swift */; };
+		0805BD7223B5B2090075E96B /* ReadTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0805BD7123B5B2090075E96B /* ReadTopView.swift */; };
 		080600AF23B1D95A008FB260 /* BookStoreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080600AE23B1D95A008FB260 /* BookStoreVC.swift */; };
 		080600B123B1D9B7008FB260 /* DiscoverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080600B023B1D9B7008FB260 /* DiscoverVC.swift */; };
 		080600B323B1D9C0008FB260 /* MineVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080600B223B1D9C0008FB260 /* MineVC.swift */; };
@@ -69,6 +71,9 @@
 		08089A4F23B09BA800AEEB52 /* RDCountryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08089A4D23B09BA800AEEB52 /* RDCountryCell.xib */; };
 		08089A5123B0A7E600AEEB52 /* BaseTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08089A5023B0A7E600AEEB52 /* BaseTableController.swift */; };
 		08089A5323B0DCBA00AEEB52 /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08089A5223B0DCBA00AEEB52 /* BaseModel.swift */; };
+		0828E2D223B5C82B00465A34 /* ReadMenuProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0828E2D123B5C82B00465A34 /* ReadMenuProtocol.swift */; };
+		0828E2D423B5CC4E00465A34 /* ReadBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0828E2D323B5CC4E00465A34 /* ReadBottomView.swift */; };
+		0828E2D623B5D16E00465A34 /* ReadSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0828E2D523B5D16E00465A34 /* ReadSetView.swift */; };
 		0870DA0423B37711005A50E1 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0870DA0223B37711005A50E1 /* String+Extension.swift */; };
 		0870DA0523B37711005A50E1 /* UIPageViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0870DA0323B37711005A50E1 /* UIPageViewController+Extension.swift */; };
 		0870DA0923B3791A005A50E1 /* ReadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0870DA0823B3791A005A50E1 /* ReadVC.swift */; };
@@ -86,6 +91,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0805BD6F23B5B1A30075E96B /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		0805BD7123B5B2090075E96B /* ReadTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadTopView.swift; sourceTree = "<group>"; };
 		080600AE23B1D95A008FB260 /* BookStoreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookStoreVC.swift; sourceTree = "<group>"; };
 		080600B023B1D9B7008FB260 /* DiscoverVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverVC.swift; sourceTree = "<group>"; };
 		080600B223B1D9C0008FB260 /* MineVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineVC.swift; sourceTree = "<group>"; };
@@ -155,6 +162,9 @@
 		08089A4D23B09BA800AEEB52 /* RDCountryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RDCountryCell.xib; sourceTree = "<group>"; };
 		08089A5023B0A7E600AEEB52 /* BaseTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableController.swift; sourceTree = "<group>"; };
 		08089A5223B0DCBA00AEEB52 /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
+		0828E2D123B5C82B00465A34 /* ReadMenuProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadMenuProtocol.swift; sourceTree = "<group>"; };
+		0828E2D323B5CC4E00465A34 /* ReadBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadBottomView.swift; sourceTree = "<group>"; };
+		0828E2D523B5D16E00465A34 /* ReadSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadSetView.swift; sourceTree = "<group>"; };
 		0870DA0223B37711005A50E1 /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		0870DA0323B37711005A50E1 /* UIPageViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIPageViewController+Extension.swift"; sourceTree = "<group>"; };
 		0870DA0823B3791A005A50E1 /* ReadVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadVC.swift; sourceTree = "<group>"; };
@@ -249,6 +259,7 @@
 				080600BE23B1E49B008FB260 /* BaseTableCell.swift */,
 				080600C023B1E4B9008FB260 /* BaseCollectionCell.swift */,
 				080600C223B1E4DF008FB260 /* BaseReusableView.swift */,
+				0805BD6F23B5B1A30075E96B /* BaseView.swift */,
 			);
 			path = BaseView;
 			sourceTree = "<group>";
@@ -454,7 +465,11 @@
 		0870DA1E23B48CA0005A50E1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0828E2D123B5C82B00465A34 /* ReadMenuProtocol.swift */,
 				0870DA1F23B48CA0005A50E1 /* DZMReadView.swift */,
+				0805BD7123B5B2090075E96B /* ReadTopView.swift */,
+				0828E2D323B5CC4E00465A34 /* ReadBottomView.swift */,
+				0828E2D523B5D16E00465A34 /* ReadSetView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -641,6 +656,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0805BD7223B5B2090075E96B /* ReadTopView.swift in Sources */,
 				0870DA2023B48CA0005A50E1 /* DZMReadView.swift in Sources */,
 				080600B323B1D9C0008FB260 /* MineVC.swift in Sources */,
 				080899E623AF355000AEEB52 /* RDRegisterController.swift in Sources */,
@@ -655,6 +671,7 @@
 				080600D023B22466008FB260 /* RDKingfisherManager.swift in Sources */,
 				080600C523B1E624008FB260 /* BookStoreFirstCell.swift in Sources */,
 				08089A4023B08AD200AEEB52 /* PhoneNumberUtil.m in Sources */,
+				0828E2D623B5D16E00465A34 /* ReadSetView.swift in Sources */,
 				080899CE23AF196300AEEB52 /* ViewController.swift in Sources */,
 				08089A2723AF8CB000AEEB52 /* RDConfig.swift in Sources */,
 				08089A5323B0DCBA00AEEB52 /* BaseModel.swift in Sources */,
@@ -664,6 +681,7 @@
 				08089A2B23B0681E00AEEB52 /* TXTheme.swift in Sources */,
 				08089A4623B08CCF00AEEB52 /* FunctionalUtil.m in Sources */,
 				08089A0623AF4D3800AEEB52 /* RDNetMananger.swift in Sources */,
+				0828E2D223B5C82B00465A34 /* ReadMenuProtocol.swift in Sources */,
 				080899F123AF43DC00AEEB52 /* BaseTabBarController.swift in Sources */,
 				080600BF23B1E49B008FB260 /* BaseTableCell.swift in Sources */,
 				080600CB23B1FF02008FB260 /* RDBookShelfVC.swift in Sources */,
@@ -680,6 +698,7 @@
 				080899E323AF350D00AEEB52 /* BaseController.swift in Sources */,
 				080600B923B1E41D008FB260 /* BookStoreListVC.swift in Sources */,
 				08089A2523AF898900AEEB52 /* RDServerInfo.swift in Sources */,
+				0805BD7023B5B1A30075E96B /* BaseView.swift in Sources */,
 				08089A0023AF4B1500AEEB52 /* UIImage+OWS.m in Sources */,
 				0807503C23B3524B00D7BB36 /* ContentMananger.swift in Sources */,
 				080600C123B1E4B9008FB260 /* BaseCollectionCell.swift in Sources */,
@@ -694,6 +713,7 @@
 				0870DA1923B47653005A50E1 /* DZMPublic.swift in Sources */,
 				08089A1E23AF620700AEEB52 /* RDAccountManager.swift in Sources */,
 				0870DA0423B37711005A50E1 /* String+Extension.swift in Sources */,
+				0828E2D423B5CC4E00465A34 /* ReadBottomView.swift in Sources */,
 				0870DA1B23B47920005A50E1 /* DZMSpaceList.swift in Sources */,
 				0870DA1623B470E6005A50E1 /* DZMCoreText.swift in Sources */,
 			);

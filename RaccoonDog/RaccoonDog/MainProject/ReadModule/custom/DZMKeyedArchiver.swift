@@ -14,7 +14,7 @@ import UIKit
 class DZMKeyedArchiver: NSObject {
     
     /// 归档文件
-    class func archiver(folderName:String!, fileName:String!, object:AnyObject!) {
+    class func archiver(folderName:String!, fileName:String!, object:AnyObject) {
         
         var path = DZM_READ_DOCUMENT_DIRECTORY_PATH + "/\(DZM_READ_FOLDER_NAME)/\(folderName!)"
         

@@ -11,6 +11,7 @@ import UIKit
 class ReadContentVC: BaseController {
 
     ///是否是背景view
+
     var isBack = false
     var currentReadModel : ParserReadModel!
     var readView : DZMReadView!
@@ -28,7 +29,7 @@ class ReadContentVC: BaseController {
         
         
         readView = DZMReadView()
-        let currentPage = currentReadModel.page
+        let currentPage = currentReadModel.page.intValue
         readView.content = currentReadModel.pageModels[currentPage].content
         view.addSubview(readView)
         readView.frame = DZM_READ_VIEW_RECT

@@ -60,11 +60,13 @@ class RD_DBManager {
     
     private func getDB() -> FMDatabase?{
         if let db = self.db {
+            db.open()
             return db
         }
         if var path = self.getDatabasePath(){
             path = "\(path)/database.sqlite"
             let db = FMDatabase.init(path: path)
+            db.open()
             self.db = db
             return db;
         }
