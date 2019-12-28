@@ -74,6 +74,11 @@
 		0828E2D223B5C82B00465A34 /* ReadMenuProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0828E2D123B5C82B00465A34 /* ReadMenuProtocol.swift */; };
 		0828E2D423B5CC4E00465A34 /* ReadBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0828E2D323B5CC4E00465A34 /* ReadBottomView.swift */; };
 		0828E2D623B5D16E00465A34 /* ReadSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0828E2D523B5D16E00465A34 /* ReadSetView.swift */; };
+		0828E2D823B6F22000465A34 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0828E2D723B6F22000465A34 /* UIView+Extension.swift */; };
+		0828E2DA23B729F200465A34 /* BookStoreSecondCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0828E2D923B729F200465A34 /* BookStoreSecondCell.swift */; };
+		0828E2DC23B7401700465A34 /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0828E2DB23B7401700465A34 /* BannerView.swift */; };
+		0828E2DE23B741EA00465A34 /* BannerImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0828E2DD23B741EA00465A34 /* BannerImageView.swift */; };
+		0828E2E023B75C2800465A34 /* BannerReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0828E2DF23B75C2800465A34 /* BannerReusableView.swift */; };
 		0870DA0423B37711005A50E1 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0870DA0223B37711005A50E1 /* String+Extension.swift */; };
 		0870DA0523B37711005A50E1 /* UIPageViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0870DA0323B37711005A50E1 /* UIPageViewController+Extension.swift */; };
 		0870DA0923B3791A005A50E1 /* ReadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0870DA0823B3791A005A50E1 /* ReadVC.swift */; };
@@ -165,6 +170,11 @@
 		0828E2D123B5C82B00465A34 /* ReadMenuProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadMenuProtocol.swift; sourceTree = "<group>"; };
 		0828E2D323B5CC4E00465A34 /* ReadBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadBottomView.swift; sourceTree = "<group>"; };
 		0828E2D523B5D16E00465A34 /* ReadSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadSetView.swift; sourceTree = "<group>"; };
+		0828E2D723B6F22000465A34 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		0828E2D923B729F200465A34 /* BookStoreSecondCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookStoreSecondCell.swift; sourceTree = "<group>"; };
+		0828E2DB23B7401700465A34 /* BannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
+		0828E2DD23B741EA00465A34 /* BannerImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerImageView.swift; sourceTree = "<group>"; };
+		0828E2DF23B75C2800465A34 /* BannerReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerReusableView.swift; sourceTree = "<group>"; };
 		0870DA0223B37711005A50E1 /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		0870DA0323B37711005A50E1 /* UIPageViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIPageViewController+Extension.swift"; sourceTree = "<group>"; };
 		0870DA0823B3791A005A50E1 /* ReadVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadVC.swift; sourceTree = "<group>"; };
@@ -249,6 +259,10 @@
 			isa = PBXGroup;
 			children = (
 				080600C423B1E624008FB260 /* BookStoreFirstCell.swift */,
+				0828E2D923B729F200465A34 /* BookStoreSecondCell.swift */,
+				0828E2DB23B7401700465A34 /* BannerView.swift */,
+				0828E2DD23B741EA00465A34 /* BannerImageView.swift */,
+				0828E2DF23B75C2800465A34 /* BannerReusableView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -417,6 +431,7 @@
 			children = (
 				0870DA0223B37711005A50E1 /* String+Extension.swift */,
 				0870DA0323B37711005A50E1 /* UIPageViewController+Extension.swift */,
+				0828E2D723B6F22000465A34 /* UIView+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -660,7 +675,9 @@
 				0870DA2023B48CA0005A50E1 /* DZMReadView.swift in Sources */,
 				080600B323B1D9C0008FB260 /* MineVC.swift in Sources */,
 				080899E623AF355000AEEB52 /* RDRegisterController.swift in Sources */,
+				0828E2DE23B741EA00465A34 /* BannerImageView.swift in Sources */,
 				08089A1A23AF4FF200AEEB52 /* RDRequest.swift in Sources */,
+				0828E2E023B75C2800465A34 /* BannerReusableView.swift in Sources */,
 				0870DA0C23B37986005A50E1 /* ReadModel.swift in Sources */,
 				08089A2923AF8DEB00AEEB52 /* RDSeverApi.swift in Sources */,
 				080899F323AF43FB00AEEB52 /* BaseNavigationController.swift in Sources */,
@@ -670,6 +687,7 @@
 				08089A2223AF802000AEEB52 /* Tool.swift in Sources */,
 				080600D023B22466008FB260 /* RDKingfisherManager.swift in Sources */,
 				080600C523B1E624008FB260 /* BookStoreFirstCell.swift in Sources */,
+				0828E2DC23B7401700465A34 /* BannerView.swift in Sources */,
 				08089A4023B08AD200AEEB52 /* PhoneNumberUtil.m in Sources */,
 				0828E2D623B5D16E00465A34 /* ReadSetView.swift in Sources */,
 				080899CE23AF196300AEEB52 /* ViewController.swift in Sources */,
@@ -694,7 +712,9 @@
 				08089A3D23B08AA400AEEB52 /* RDContryCodeVC.swift in Sources */,
 				0870DA1723B470E6005A50E1 /* DZMUserDefaults.swift in Sources */,
 				0870DA1523B470E6005A50E1 /* DZMKeyedArchiver.swift in Sources */,
+				0828E2DA23B729F200465A34 /* BookStoreSecondCell.swift in Sources */,
 				080600C923B1FD78008FB260 /* RDBookNetManager.swift in Sources */,
+				0828E2D823B6F22000465A34 /* UIView+Extension.swift in Sources */,
 				080899E323AF350D00AEEB52 /* BaseController.swift in Sources */,
 				080600B923B1E41D008FB260 /* BookStoreListVC.swift in Sources */,
 				08089A2523AF898900AEEB52 /* RDServerInfo.swift in Sources */,

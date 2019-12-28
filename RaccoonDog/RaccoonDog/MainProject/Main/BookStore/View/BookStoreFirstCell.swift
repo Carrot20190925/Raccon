@@ -22,6 +22,12 @@ class BookStoreFirstCell: BaseCollectionCell {
         self.addSubview(avatarImage)
         self.addSubview(bookNameLabel)
         self.addSubview(bookAuthorLabel)
+        avatarImage.layer.cornerRadius = 10
+        avatarImage.clipsToBounds = true
+        avatarImage.backgroundColor = UIColor.lightGray
+        self.bookAuthorLabel.text = "xxx"
+        self.bookNameLabel.text = "xxx"
+
         avatarImage.snp.makeConstraints { (make) in
             make.bottom.equalTo(bookNameLabel.snp.top).offset(-10)
             make.height.equalTo(avatarImage.snp.width).multipliedBy(130.0/108.0)

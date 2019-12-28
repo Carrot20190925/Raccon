@@ -17,7 +17,7 @@ let RD_Read_Height = rScreenHeight - RD_Read_ContentY - 30
 let RD_READ_BOOK_HOME_PAGE = -1
 
 class ReadModel {
-    var bookId : Int = 0
+    var book_uuid : String!
     var bookName : String?
     var bookAuthor : String?
     var bookCategoryId : Int?
@@ -52,8 +52,8 @@ class ReadModel {
     }
     var listModels : [NovelChapterModel] = []
     
-    init(bookId:Int) {
-        self.bookId = bookId
+    init(book_uuid:String) {
+        self.book_uuid = book_uuid
         self.getCurrentModel()
     }
     
@@ -75,7 +75,7 @@ class ReadModel {
             item.isRead = true
             item.isCurrentRead = true
             item.save()
-            let currentModel = ParserReadModel.getModel(url: item.chapter_content, chapter_no: item.chapter_no, novel_id: item.novel_id, title: item.chapter_title)
+            let currentModel = ParserReadModel.getModel(url: item.chapter_content, chapter_no: item.chapter_no, novel_id : item.novel_id, title: item.chapter_title)
             currentModel.index = 0
             self.currentReadModel = currentModel
 
@@ -83,7 +83,7 @@ class ReadModel {
     }
     
     func getCurrentModel() {
-        if let recodeModel = DZMKeyedArchiver.unarchiver(folderName: "\(self.bookId)", fileName: "\(self.bookId)") as? ParserReadModel{
+        if let recodeModel = DZMKeyedArchiver.unarchiver(folderName: "\(self.book_uuid!)", fileName: "\(self.book_uuid!)") as? ParserReadModel{
             self.currentReadModel = recodeModel
         }
     }
@@ -95,7 +95,7 @@ class ParserReadModel:NSObject,NSSecureCoding,NSCopying {
 
     static var supportsSecureCoding: Bool = true
     
-    var novel_id  = NSNumber.init(value: 0)
+    var novel_id  : String!
     var index  = NSNumber.init(value: 0)
     var chpater_no = NSNumber.init(value: 0)
     var pageModels : [RDReadPageModel] = []
@@ -119,7 +119,7 @@ class ParserReadModel:NSObject,NSSecureCoding,NSCopying {
     
     
     func copy(with zone: NSZone? = nil) -> Any {
-        let item = ParserReadModel.init(novel_id: self.novel_id.intValue, chapter_no: self.chpater_no.intValue, url: self.url)
+        let item = ParserReadModel.init(novel_id: self.novel_id, chapter_no: self.chpater_no.intValue, url: self.url)
 
         item.index = self.index
         item.title = self.title
@@ -149,7 +149,7 @@ class ParserReadModel:NSObject,NSSecureCoding,NSCopying {
     }
     
     required init?(coder: NSCoder) {
-        novel_id = coder.decodeObject(forKey: "novel_id") as? NSNumber ?? 0
+        novel_id = coder.decodeObject(forKey: "novel_id") as? String
         index = coder.decodeObject(forKey: "index") as? NSNumber ?? 0
         chpater_no = coder.decodeObject(forKey: "chpater_no") as? NSNumber ?? 0
         url = coder.decodeObject(forKey: "url") as? String
@@ -214,15 +214,15 @@ class ParserReadModel:NSObject,NSSecureCoding,NSCopying {
 
     }
     
-    private init(novel_id : Int,chapter_no:Int,url:String?) {
-        self.novel_id = NSNumber.init(value: novel_id)
+    private init(novel_id : String,chapter_no:Int,url:String?) {
+        self.novel_id = novel_id
         self.chpater_no = NSNumber.init(value: chapter_no)
         self.url = url
 
         
     }
     
-    static func getModel(url:String?,chapter_no : Int,novel_id : Int,title:String?) -> ParserReadModel{
+    static func getModel(url:String?,chapter_no : Int,novel_id : String,title:String?) -> ParserReadModel{
         let  model = ParserReadModel.init(novel_id: novel_id, chapter_no: chapter_no, url: url)
         model.title = title
         if let content = ContentManager.share.getContent(chapter_no: chapter_no, novel_id:novel_id){

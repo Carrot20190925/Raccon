@@ -11,16 +11,29 @@ import UIKit
 private let reuseIdentifier = "Cell"
 
 class BookStoreListVC: BaseCollectionVC {
-
+    var firstSectionSize : CGSize!
+    var secondSectionSize : CGSize!
 //    var books 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        let width = (rScreenWidth - 55) / 3.0
+        let height = width * 130.0/108.0
+        self.firstSectionSize = CGSize.init(width: width, height: height + 60)
+        
+        self.secondSectionSize = CGSize.init(width: rScreenWidth - 32, height: height + 10 + 16 + 10)
+//        self.collectionView.backgroundColor = UIColor.green
+        
+        
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-        self.collectionView!.register(BookStoreFirstCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView!.register(BookStoreSecondCell.self, forCellWithReuseIdentifier: "BookStoreSecondCell")
+
+        self.collectionView!.register(BookStoreFirstCell.self, forCellWithReuseIdentifier: "BookStoreFirstCell")
+        self.collectionView.register(BannerReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "BannerReusableView")
 
         // Do any additional setup after loading the view.
     }
@@ -40,22 +53,46 @@ class BookStoreListVC: BaseCollectionVC {
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 2
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 0
+        return 10
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        if indexPath.section == 0 {
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BookStoreFirstCell", for: indexPath) as! BookStoreFirstCell
+            return cell
+
+        }else{
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BookStoreSecondCell", for: indexPath) as! BookStoreSecondCell
+            return cell
+
+        }
     
         // Configure the cell
     
-        return cell
     }
+    
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionHeader {
+            let headView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "BannerReusableView", for: indexPath)
+            return headView
+        }else{
+            let headView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "BannerReusableView", for: indexPath)
+            return headView
+            
+        }
+
+    }
+    
+    
+    
 
     // MARK: UICollectionViewDelegate
 
@@ -91,7 +128,26 @@ class BookStoreListVC: BaseCollectionVC {
 }
 
 
-extension BookStoreListVC{
+extension BookStoreListVC:UICollectionViewDelegateFlowLayout{
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if section == 0 {
+            return CGSize.init(width: rScreenWidth, height: 80)
+        }
+        return CGSize.zero
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if indexPath.section == 0 {
+            return self.firstSectionSize
+        }else{
+            return self.secondSectionSize
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets{
+        return UIEdgeInsets.init(top: 15, left: 16, bottom: 0, right: 16)
+    }
+    
     func loadData()  {
         
     }

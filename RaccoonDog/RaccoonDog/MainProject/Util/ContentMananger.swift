@@ -14,7 +14,7 @@ class ContentManager {
     static let share = ContentManager.init()
     
     private init(){}
-    func getContent(chapter_no:Int,novel_id:Int) -> String? {
+    func getContent(chapter_no:Int,novel_id:String) -> String? {
         
         let key = "\(novel_id)_\(chapter_no)"
         if let content = self.contentCache.object(forKey: key as AnyObject) as? String,content.count > 1 {
@@ -34,7 +34,7 @@ class ContentManager {
         return nil
     }
     
-    func saveContent(chapter_no:Int,novel_id:Int,content:String) {
+    func saveContent(chapter_no:Int,novel_id:String,content:String) {
         let key = "\(novel_id)_\(chapter_no)"
         self.contentCache.setObject(content as AnyObject, forKey: key as AnyObject)
         DispatchQueue.global().async {

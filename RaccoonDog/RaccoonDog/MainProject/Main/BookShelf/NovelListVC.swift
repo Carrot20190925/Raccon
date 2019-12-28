@@ -169,13 +169,14 @@ extension NovelListVC{
         guard let item = self.bookItem else {
             return
         }
-        readModel = ReadModel.init(bookId: item.id)
+        readModel = ReadModel.init(book_uuid: item.book_uuid)
         readModel?.bookName = self.bookItem?.title
         readModel?.bookAuthor = self.bookItem?.author
-        if let items = RD_DBManager.getSyncNovelList(novel_id: item.id),items.count > 0{
+        if let items = RD_DBManager.getSyncNovelList(novel_id: item.book_uuid),items.count > 0{
             self.setupData(data: items)
         }else{
-            RDBookNetManager.novelChapterNetWork(novel_id: String.init(item.id), success: {[weak self] (response) in
+            
+            RDBookNetManager.novelChapterNetWork(novel_id: item.book_uuid, success: {[weak self] (response) in
                 guard let weakSelf = self else{
                     return
                 }

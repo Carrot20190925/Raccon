@@ -12,20 +12,20 @@ class NovelChapterModel {
     var chapter_content : String?
     var chapter_title : String?
     var id : Int = 0
-    var novel_id : Int = 0
+    var novel_id : String!
 
     var volume : Int = 0
     var isRead : Bool = false
     var isCurrentRead = false
     
     
-    private init(novel_id : Int,chapter_no : Int){
+    private init(novel_id : String,chapter_no : Int){
         self.novel_id = novel_id
         self.chapter_no = chapter_no
     }
     //MARK:-  根据模型获取数据
     static func getModel(data : Any?) -> NovelChapterModel? {
-        guard let item = data as? Dictionary<String,Any>,let chapter_no = item["chapter_no"] as? Int,let novel_id = item["novel_id"] as? Int else {
+        guard let item = data as? Dictionary<String,Any>,let chapter_no = item["chapter_no"] as? Int,let novel_id = item["book_uuid"] as? String else {
             return nil
         }
         let model = NovelChapterModel.init(novel_id: novel_id, chapter_no: chapter_no)
@@ -57,7 +57,7 @@ class NovelChapterModel {
     func save()  {
         var data : Dictionary <String,Any>  = [:]
         data["chapter_no"] = chapter_no
-        data["novel_id"] = novel_id
+        data["book_uuid"] = novel_id
         if let chapter_title = self.chapter_title{
             data["chapter_title"] = chapter_title
         }

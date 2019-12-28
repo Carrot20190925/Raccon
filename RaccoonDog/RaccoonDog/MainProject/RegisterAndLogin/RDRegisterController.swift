@@ -44,14 +44,18 @@ class RDRegisterController: BaseController {
     
     
     func initUI() {
+
         self.navigationController?.setNavigationBarHidden(true, animated: false)
-        self.logoImageView.layer.cornerRadius = 25
+        self.logoImageView.layer.cornerRadius = 22
         self.logoImageView.clipsToBounds = true
         for subjectLabel in self.subjectLabels {
             subjectLabel.textColor = TXTheme.secondColor()
             subjectLabel.font = TXTheme.thirdTitleFont(size: 18)
         }
-        
+        self.commitBtn.backgroundColor = TXTheme.themeColor()
+        self.commitBtn.layer.cornerRadius = 25.0
+        self.commitBtn.clipsToBounds = true
+        self.commitBtn.setTitleColor(UIColor.white, for: .normal)
         let attri = NSMutableAttributedString.init(string:RD_localized("欢迎来到小狸阅读\n", ""), attributes: [NSAttributedString.Key.foregroundColor:TXTheme.secondColor(),NSAttributedString.Key.font:TXTheme.thirdTitleFont(size: 23)])
         
         let appendStr = NSAttributedString.init(string: RD_localized("输入手机号码，开始阅读的世界", ""), attributes:[ NSAttributedString.Key.foregroundColor:TXTheme.placeHoderColor(),NSAttributedString.Key.font:TXTheme.thirdTitleFont(size: 15)])
@@ -80,11 +84,19 @@ class RDRegisterController: BaseController {
         secondTF.rightView = verifityBtn
         secondTF.rightViewMode = .always
         
-        let placeHoders = ["请输入电话号码","请输入短信验证码","请输入邀请码（非必填）"]
+        let placeHoders = ["请输入电话号码","请输入短信验证码","请输入密码","请输入邀请码（非必填）"]
         for (index,textField) in self.inputTFs.enumerated() {
             textField.attributedPlaceholder = NSAttributedString.init(string: placeHoders[index], attributes: [NSAttributedString.Key.foregroundColor : TXTheme.placeHoderColor(),NSAttributedString.Key.font:TXTheme.thirdTitleFont(size: 14)])
         }
         
+        let protocolText = NSMutableAttributedString.init(string: "注册即代表您已阅读并同意小狸阅读《用户协议》")
+        protocolText.addAttribute(NSAttributedString.Key.foregroundColor, value: TXTheme.titleColor(), range: NSRange.init(location: 0, length: 16))
+        protocolText.addAttribute(NSAttributedString.Key.foregroundColor, value: TXTheme.themeColor(), range: NSRange.init(location: 16, length: 6))
+
+        protocolText.addAttribute(NSAttributedString.Key.underlineStyle, value: 1 , range: NSRange.init(location: 16, length: 6))
+        self.protocolLabel.attributedText = protocolText
+
+//
         
         self.addAction()
         
@@ -113,14 +125,16 @@ class RDRegisterController: BaseController {
         
         NotificationCenter.default.rx.notification(.init(UIResponder.keyboardWillShowNotification)).subscribe {[weak self ] (event) in
             UIView.animate(withDuration: 0.25) {
-                self?.topConstraint.constant = 20 - 100;
+                self?.view.mj_y = -80;
+//                self?.topConstraint.constant = 20 - 100;
             }
 //            MyLog(notification.element)
         }.disposed(by: disposeBag)
         
         NotificationCenter.default.rx.notification(.init(UIResponder.keyboardWillHideNotification)).subscribe {[weak self] (notification) in
             UIView.animate(withDuration: 0.25) {
-                self?.topConstraint.constant = 20
+//                self?.topConstraint.constant = 20
+                self?.view.mj_y = 0
             }
             MyLog(notification)
         }.disposed(by: disposeBag)

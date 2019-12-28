@@ -11,7 +11,7 @@ import FMDB
 
 typealias DatabaseHandle = ((_ data : Any) -> Void)
 let rd_database_queue = "rd_database_queue_serial"
-let rd_create_novel_list_table_sql = "create table if not exists novel_list (novel_chapter_id text primary key,chapter_content text,chapter_no int,chapter_title text,created_at text,chapter_id int,novel_id int ,volume int,isRead bool,isCurrentRead bool)"
+let rd_create_novel_list_table_sql = "create table if not exists novel_list (novel_chapter_id text primary key,chapter_content text,chapter_no int,chapter_title text,created_at text,chapter_id int,novel_id text ,volume int,isRead bool,isCurrentRead bool)"
 
 
 
@@ -97,7 +97,7 @@ class RD_DBManager {
     
     private func updateModel(item : Dictionary<String,Any>){
         self.getDBQueue()?.inTransaction({ (db, stop) in
-            guard let chapter_no = item["chapter_no"] as? Int,let novel_id = item["novel_id"] as? Int else {
+            guard let chapter_no = item["chapter_no"] as? Int,let novel_id = item["book_uuid"] as? String else {
                 return
             }
             let novel_chapter_id = "\(novel_id)\(chapter_no)"
@@ -129,7 +129,7 @@ class RD_DBManager {
         self.getDBQueue()?.inTransaction({ (db, stop) in
             for item in datas{
                 
-                guard let chapter_no = item["chapter_no"] as? Int,let novel_id = item["novel_id"] as? Int else {
+                guard let chapter_no = item["chapter_no"] as? Int,let novel_id = item["book_uuid"] as? String else {
                     continue
                 }
                 
@@ -160,12 +160,12 @@ class RD_DBManager {
     }
     
     
-    static func getSyncNovelList(novel_id : Int) -> [Any]?{
+    static func getSyncNovelList(novel_id : String) -> [Any]?{
         let sql = "select * from novel_list where novel_id = \(novel_id)"
         if let result = RD_DBManager.share.getDB()?.executeQuery(sql, withArgumentsIn: []){
             var datas : [Dictionary <String,Any?>] = []
             while result.next(){
-                let novel_id = result.long(forColumn: "novel_id")
+                let novel_id = result.string(forColumn: "novel_id")
                 let id = result.long(forColumn: "chapter_id")
                 let chapter_no = result.long(forColumn: "chapter_no")
                 let chapter_content = result.string(forColumn: "chapter_content")
@@ -175,7 +175,7 @@ class RD_DBManager {
                 let isRead = result.bool(forColumn: "isRead")
                 let isCurrentRead = result.bool(forColumn: "isCurrentRead")
                 
-                let data = ["novel_id":novel_id,
+                let data = ["book_uuid":novel_id,
                             "id":id,
                             "chapter_no":chapter_no,
                             "chapter_content":chapter_content,
@@ -194,13 +194,13 @@ class RD_DBManager {
     }
     
     //MARK:-  获取数据
-    static func getNovelList(novel_id : Int,complete:@escaping DatabaseHandle){
+    static func getNovelList(novel_id : String,complete:@escaping DatabaseHandle){
         RD_DBManager.share.getDBQueue()?.inTransaction({ (db, stop) in
             let sql = "select * from novel_list where novel_id = \(novel_id)"
             let result = db.executeQuery(sql, withArgumentsIn: [])
             var datas : [Dictionary <String,Any?>] = []
             while result?.next() ?? false{
-                let novel_id = result!.long(forColumn: "novel_id")
+                let novel_id = result!.string(forColumn: "novel_id")
                 let id = result!.long(forColumn: "chapter_id")
                 let chapter_no = result!.long(forColumn: "chapter_no")
                 let chapter_content = result!.string(forColumn: "chapter_content")
@@ -210,7 +210,7 @@ class RD_DBManager {
                 let isRead = result!.bool(forColumn: "isRead")
                 let isCurrentRead = result!.bool(forColumn: "isCurrentRead")
                 
-                let data = ["novel_id":novel_id,
+                let data = ["book_uuid":novel_id,
                             "id":id,
                             "chapter_no":chapter_no,
                             "chapter_content":chapter_content,

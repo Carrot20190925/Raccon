@@ -26,7 +26,10 @@ class RDLoginController: BaseController {
         self.initUI()
         // Do any additional setup after loading the view.
     }
-    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        self.view.endEditing(true)
+    }
     
     
     func initUI() {
@@ -37,6 +40,10 @@ class RDLoginController: BaseController {
             subjectLabel.textColor = TXTheme.secondColor()
             subjectLabel.font = TXTheme.thirdTitleFont(size: 18)
         }
+        self.commitBtn.backgroundColor = TXTheme.themeColor()
+        self.commitBtn.layer.cornerRadius = 25.0
+        self.commitBtn.clipsToBounds = true
+        self.commitBtn.setTitleColor(UIColor.white, for: .normal)
         
         let attri = NSMutableAttributedString.init(string:RD_localized("欢迎来到小狸阅读\n", ""), attributes: [NSAttributedString.Key.foregroundColor:TXTheme.secondColor(),NSAttributedString.Key.font:TXTheme.thirdTitleFont(size: 23)])
         

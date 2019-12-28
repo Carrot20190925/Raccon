@@ -61,7 +61,36 @@ class TXTheme: NSObject {
     static func placeHoderColor() -> UIColor{
         return self.rgbColor(153, 153, 153)
     }
+//MARK:-  主题色
+    static func themeColor() -> UIColor{
+        return self.rgbColor(28, 213, 153)
+    }
+    
+    //MARK:-  书描述颜色
+    static func seventhColor() -> UIColor {
+        return self.rgbColor(130, 130, 146)
+    }
+    //MARK:-  书标题颜色
+    static func eighthColor() -> UIColor {
+        return self.rgbColor(12, 15, 44)
+    }
+    //MARK:-  分割线颜色
+    static func ninthColor() -> UIColor {
+        return self.rgbColor(238, 238, 238)
+    }
+    //MARK:-  书作者颜色
+    static func tenthColor() -> UIColor {
+        return self.rgbColor(175, 175, 175)
+    }
+    
+    //MARK:-  书分颜色
+    static func eleventhColor() -> UIColor {
+        return self.rgbColor(138, 117, 112)
+    }
 
+    
+    
+    
     @objc
     static func mainTitleFont() -> UIFont{
         self.font(name: "PingFangSC-Semibold", size: 18)

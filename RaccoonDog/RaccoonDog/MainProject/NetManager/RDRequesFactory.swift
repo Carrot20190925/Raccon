@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 class RDRequestFactory {
     //MARK:- 书架列表请求
     /**
@@ -25,7 +24,7 @@ class RDRequestFactory {
      - returns: RDRequest
      */
     public static func novelChapterRequest(novel_id:String) -> RDRequest{
-        let params = ["novel_id":novel_id]
+        let params = ["book_uuid":novel_id]
         return RDRequest.init(method: "GET", url: RD_Base_Server_Url + RD_NovelChapter_Api, paramters: params, authorHeader: nil)
     }
     
