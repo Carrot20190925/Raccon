@@ -92,6 +92,8 @@
 		0870DA1B23B47920005A50E1 /* DZMSpaceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0870DA1A23B47920005A50E1 /* DZMSpaceList.swift */; };
 		0870DA1D23B48BC1005A50E1 /* ReadContentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0870DA1C23B48BC1005A50E1 /* ReadContentVC.swift */; };
 		0870DA2023B48CA0005A50E1 /* DZMReadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0870DA1F23B48CA0005A50E1 /* DZMReadView.swift */; };
+		08F84DC823B7724D008E6558 /* CategroyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F84DC723B7724D008E6558 /* CategroyVC.swift */; };
+		08F84DCA23B774F9008E6558 /* CategoryListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F84DC923B774F9008E6558 /* CategoryListVC.swift */; };
 		D04051D1E09B7A74FF6C8082 /* Pods_RaccoonDog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4D2D4B7828614FEAAC0507B /* Pods_RaccoonDog.framework */; };
 /* End PBXBuildFile section */
 
@@ -188,6 +190,8 @@
 		0870DA1A23B47920005A50E1 /* DZMSpaceList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DZMSpaceList.swift; sourceTree = "<group>"; };
 		0870DA1C23B48BC1005A50E1 /* ReadContentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadContentVC.swift; sourceTree = "<group>"; };
 		0870DA1F23B48CA0005A50E1 /* DZMReadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DZMReadView.swift; sourceTree = "<group>"; };
+		08F84DC723B7724D008E6558 /* CategroyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategroyVC.swift; sourceTree = "<group>"; };
+		08F84DC923B774F9008E6558 /* CategoryListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListVC.swift; sourceTree = "<group>"; };
 		7A78775CBE1D0E302E747DD5 /* Pods-RaccoonDog.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RaccoonDog.release.xcconfig"; path = "Target Support Files/Pods-RaccoonDog/Pods-RaccoonDog.release.xcconfig"; sourceTree = "<group>"; };
 		B102333149F6818C6FC25506 /* Pods-RaccoonDog.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RaccoonDog.debug.xcconfig"; path = "Target Support Files/Pods-RaccoonDog/Pods-RaccoonDog.debug.xcconfig"; sourceTree = "<group>"; };
 		E4D2D4B7828614FEAAC0507B /* Pods_RaccoonDog.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RaccoonDog.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -349,6 +353,7 @@
 		080899E023AF34E700AEEB52 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				0828E2E223B771EF00465A34 /* Categroy */,
 				080600BB23B1E464008FB260 /* BaseView */,
 				080600AA23B1D912008FB260 /* BookShelf */,
 				080600A923B1D912008FB260 /* BookStore */,
@@ -424,6 +429,15 @@
 				08089A4D23B09BA800AEEB52 /* RDCountryCell.xib */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		0828E2E223B771EF00465A34 /* Categroy */ = {
+			isa = PBXGroup;
+			children = (
+				08F84DC723B7724D008E6558 /* CategroyVC.swift */,
+				08F84DC923B774F9008E6558 /* CategoryListVC.swift */,
+			);
+			path = Categroy;
 			sourceTree = "<group>";
 		};
 		0870DA0123B37711005A50E1 /* Extension */ = {
@@ -705,9 +719,11 @@
 				080600CB23B1FF02008FB260 /* RDBookShelfVC.swift in Sources */,
 				0870DA0E23B3831D005A50E1 /* ReadConfigModel.swift in Sources */,
 				080600B123B1D9B7008FB260 /* DiscoverVC.swift in Sources */,
+				08F84DC823B7724D008E6558 /* CategroyVC.swift in Sources */,
 				08089A2D23B069C800AEEB52 /* String+SSK.swift in Sources */,
 				0870DA1D23B48BC1005A50E1 /* ReadContentVC.swift in Sources */,
 				080600AF23B1D95A008FB260 /* BookStoreVC.swift in Sources */,
+				08F84DCA23B774F9008E6558 /* CategoryListVC.swift in Sources */,
 				080600C723B1F98C008FB260 /* RDRequesFactory.swift in Sources */,
 				08089A3D23B08AA400AEEB52 /* RDContryCodeVC.swift in Sources */,
 				0870DA1723B470E6005A50E1 /* DZMUserDefaults.swift in Sources */,

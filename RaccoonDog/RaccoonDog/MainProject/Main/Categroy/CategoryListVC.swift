@@ -10,10 +10,10 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
-class BookStoreListVC: BaseCollectionVC {
+class CategoryListVC: BaseCollectionVC {
     var firstSectionSize : CGSize!
     var secondSectionSize : CGSize!
-//    var books 
+//    var books
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -79,9 +79,6 @@ class BookStoreListVC: BaseCollectionVC {
             headView.selectedCategory = { type in
                 switch type {
                 case 0://分类
-                    let categoryVC = CategroyVC.init()
-                    categoryVC.title = RD_localized("分类", "")
-                    self.navigationController?.pushViewController(categoryVC, animated: true)
                     break
                 case 1://榜单
                     break;
@@ -140,7 +137,7 @@ class BookStoreListVC: BaseCollectionVC {
 }
 
 
-extension BookStoreListVC:UICollectionViewDelegateFlowLayout{
+extension CategoryListVC:UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if section == 0 {

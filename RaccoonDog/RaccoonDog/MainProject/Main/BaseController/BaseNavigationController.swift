@@ -12,9 +12,9 @@ class BaseNavigationController: UINavigationController ,UIGestureRecognizerDeleg
         if respond {
           self.interactivePopGestureRecognizer?.delegate = self
         }
-//        self.navigationBar.shadowImage = UIImage.init();
-//        let image = UIImage.init(color: UIColor.white)
-//        self.navigationBar.setBackgroundImage(image, for: UIBarMetrics.default)
+        self.navigationBar.shadowImage = UIImage.init();
+        let image = UIImage.init(color: UIColor.white)
+        self.navigationBar.setBackgroundImage(image, for: UIBarMetrics.default)
         self.navigationBar.shadowImage = UIImage.init()
         // Do any additional setup after loading the view.
     }
@@ -32,7 +32,7 @@ class BaseNavigationController: UINavigationController ,UIGestureRecognizerDeleg
         
         if self.children.count > 0 {
             viewController.hidesBottomBarWhenPushed = true
-            viewController.navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "pigram-nav-leftBack"), style: .plain, target: self, action: #selector(backBtnClick))
+            viewController.navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "back")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(backBtnClick))
 
         }
         super.pushViewController(viewController, animated: animated);
