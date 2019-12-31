@@ -9,23 +9,50 @@
 import UIKit
 
 class ReadVC: BaseController {
+    
+    weak var novelListVC : NovelListVC?
     let topView = ReadTopView.init(frame: CGRect.init(x: 0, y: -NavgationBarHeight, width: rScreenWidth, height: NavgationBarHeight))
+    
+    let bottomView = ReadBottomView.init(frame: CGRect.init(x: 0, y: rScreenHeight, width: rScreenWidth, height: TabBarHeight))
+    ///菜单是否展示
     var showMenu = false
+    ///目录是否展示
+    var showNovelList = false
     /// 用于区分正反面的值(勿动)
     var tempNumber:Int = 1
     var contentView : UIView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: rScreenWidth, height: rScreenHeight))
     var pageViewController : UIPageViewController!
     var readModel : ReadModel!
     
+    
+    var menuView = UIView.init()
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.initMenu()
-        self.contentView.addSubview(self.topView)
+        
+        self.view.clipsToBounds = true
         self.view.addSubview(contentView)
+        self.initMenu()
+
+
+//        self.view.addSubview(self.topView)
+//        self.view.addSubview(self.bottomView)
         self.updateReadController()
         self.addSingleTap()
         
         // Do any additional setup after loading the view.
+    }
+    
+    func addObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationResignAction), name: NSNotification.Name.init(RD_Resign_Active_Notification), object: nil)
+    }
+    
+    @objc
+    func applicationResignAction() {
+        self.readModel.currentReadModel.save()
     }
     
     
@@ -56,8 +83,10 @@ class ReadVC: BaseController {
         super.viewWillDisappear(animated)
         self.readModel.currentReadModel.save()
         self.navigationController?.setNavigationBarHidden(false, animated: false)
-
     }
+    
+    
+    
     
 
     /*
@@ -144,7 +173,9 @@ extension ReadVC:UIPageViewControllerDelegate,UIPageViewControllerDataSource{
     
     /// 准备切换
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
-        
+        self.showMenu = false
+        self.showNovelList = false
+        self.setMenu()
 //        readMenu.showMenu(isShow: false)
     }
     func updateReadRecord(controller : ReadContentVC ) {
@@ -156,24 +187,31 @@ extension ReadVC:UIPageViewControllerDelegate,UIPageViewControllerDataSource{
         guard let displayController = getReadContentVC(currentReadModel: readModel.currentReadModel) else{
             return
         }
-        // 创建
-        let options = [UIPageViewController.OptionsKey.spineLocation : NSNumber(value: UIPageViewController.SpineLocation.min.rawValue)]
         
-        pageViewController = UIPageViewController(transitionStyle: .pageCurl,navigationOrientation: .horizontal,options: options)
-        
-        pageViewController.delegate = self
-        
-        pageViewController.dataSource = self
-        
-        // 翻页背部带文字效果
-        pageViewController.isDoubleSided = true
-        
-        contentView.insertSubview(pageViewController.view, at: 0)
-        
-        pageViewController.view.backgroundColor = UIColor.clear
-        
-        pageViewController.view.frame = contentView.bounds
-        pageViewController.setViewControllers([displayController], direction: .forward, animated: false, completion: nil)
+        if let pageControl = pageViewController {
+            pageViewController.setViewControllers([displayController], direction: .forward, animated: false, completion: nil)
+
+        }else{
+            // 创建
+            let options = [UIPageViewController.OptionsKey.spineLocation : NSNumber(value: UIPageViewController.SpineLocation.min.rawValue)]
+            
+            pageViewController = UIPageViewController(transitionStyle: .pageCurl,navigationOrientation: .horizontal,options: options)
+            
+            pageViewController.delegate = self
+            
+            pageViewController.dataSource = self
+            
+            // 翻页背部带文字效果
+            pageViewController.isDoubleSided = true
+            
+            contentView.insertSubview(pageViewController.view, at: 0)
+            
+            pageViewController.view.backgroundColor = UIColor.clear
+            
+            pageViewController.view.frame = contentView.bounds
+            pageViewController.setViewControllers([displayController], direction: .forward, animated: false, completion: nil)
+        }
+
 
     }
 }
@@ -264,17 +302,62 @@ extension ReadVC:UIGestureRecognizerDelegate{
     
     @objc func touchSingleTap(){
         self.showMenu = !self.showMenu
+        self.setMenu()
+    }
+    
+    //MARK:-  菜单设置
+    func setMenu() {
+        
+        if self.showMenu || self.showNovelList {
+//            self.menuView.isHidden = false
+            self.view.addSubview(self.menuView)
+        }
         if self.showMenu {
-            UIView.animate(withDuration: 0.25) {
+            self.showNovelList = false
+            UIView.animate(withDuration: 0.3) {
                 self.topView.mj_y = 0
+                self.bottomView.mj_y = rScreenHeight - self.bottomView.mj_h
             }
+            
         }else{
-            UIView.animate(withDuration: 0.25) {
-                self.topView.mj_y = -self.topView.mj_h
+            
+            if self.topView.mj_y == 0 {
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.topView.mj_y = -self.topView.mj_h
+                    self.bottomView.mj_y = rScreenHeight
+                }) { (finish) in
+                    if finish{
+                        if !self.showNovelList{
+                            self.menuView.removeFromSuperview()
+                        }
+                    }
+
+                }
+
+            }
+
+        }
+        if let novelVC = self.novelListVC,!self.showNovelList  {
+            if novelVC.view.mj_x != 0 {
+                return
+            }
+            
+            UIView.animate(withDuration: 0.3, animations: {
+                novelVC.view.mj_x = -novelVC.view.mj_w
+
+            }) { (finish) in
+                if finish{
+                    if !self.showMenu{
+                        self.menuView.removeFromSuperview()
+//                        self.menuView.isHidden = true
+                    }
+                }
+
             }
         }
-        
+
     }
+
     
 }
 
@@ -282,9 +365,78 @@ extension ReadVC:UIGestureRecognizerDelegate{
 //MARK:-  菜单协议
 extension ReadVC : ReadMenuProtocol{
     func initMenu()  {
+        
+        let tap =  UITapGestureRecognizer.init(target: self, action: #selector(tapMenuAction))
+        tap.numberOfTapsRequired = 1
+        self.menuView.frame = self.view.bounds
+//        self.menuView.addGestureRecognizer(tap)
+//        self.menuView.isHidden = true
+        self.menuView.backgroundColor = TXTheme.rgbColor(0, 0, 0, 0.6)
         self.topView.delegate = self;
+        self.bottomView.delegate = self;
+        
+//        self.view.addSubview(self.menuView)
+        let actionView = UIView.init(frame: self.menuView.bounds)
+        actionView.addGestureRecognizer(tap)
+        self.menuView.addSubview(actionView)
+        self.menuView.addSubview(self.topView)
+        self.menuView.addSubview(self.bottomView)
     }
+    
+    
+    @objc
+    func tapMenuAction()  {
+        self.showMenu = false
+        self.showNovelList = false
+        self.setMenu()
+    }
+    
     func backAction() {
         self.navigationController?.popViewController(animated: true)
+    }
+    //MARK:-  改变日夜模式
+    func changeDayNight() {
+        
+    }
+    //MARK:-  展示列表
+    func showList() {
+        self.showMenu = false
+        self.showNovelList = !self.showNovelList
+        self.setMenu()
+        if !self.showNovelList{
+            return
+        }
+        if let novelVC = self.novelListVC {
+            novelVC.tableView.reloadData()
+            UIView.animate(withDuration: 0.25) {
+                novelVC.view.mj_x = 0
+            }
+        }else{
+            let novelistVC = NovelListVC.init()
+            novelistVC.seletedChapter = {[weak self] in
+                self?.showNovelList = false
+                self?.setMenu()
+                self?.updateReadController()
+            }
+            novelistVC.readModel = self.readModel
+            let width = rScreenWidth * 0.7
+            let height = rScreenHeight
+            novelistVC.view.frame = CGRect.init(x: -width, y: 0, width: width, height: height)
+//            novelistVC.view.backgroundColor = TXTheme.rgbColor(0, 0, 0, 1)
+//            novelistVC.view.frame = CGRect.init(x:0, y: 0, width: width * 0.8, height: height)
+//            novelistVC.tableView.backgroundColor = UIColor.white
+            self.addChild(novelistVC)
+            self.menuView.addSubview(novelistVC.view)
+            self.novelListVC = novelistVC
+            UIView.animate(withDuration: 0.25) {
+                novelistVC.view.mj_x = 0
+            }
+        }
+    }
+    
+    
+    //MARK:-  展示设置界面
+    func showSet() {
+        
     }
 }

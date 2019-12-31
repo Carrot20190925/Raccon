@@ -16,7 +16,7 @@ let RD_Register_Api = "/register"
 //MARK:- //登录接口 post
 let RD_Login_Api = "/login"
 
-//MARK:-  //数架列表
+//MARK:-  //数架列表 书架加书删书
 let RD_BookShelf_Api = "/BookShelf"
 
 //MARK:-  小说列表
@@ -39,5 +39,11 @@ let RD_NovelInfo_Api = "/NovelInfo"
 //MARK:- 推荐接口
 let RD_Recommend_Api = "/Recommend"
 
+
+//MARK:-  收藏接口
+let RD_Favorites_Api = "/favorites"
+
+//MARK:-  配置接口
+let RD_Config_Api = "/Config"
 
 

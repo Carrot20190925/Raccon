@@ -170,14 +170,14 @@ class BookStoreListVC: BaseCollectionVC,BannerViewDelegate {
 
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        
-        guard let book_uuid = self.models[indexPath.section].novelList?.data?[indexPath.row].book_uuid else{
+        let model = self.models[indexPath.section].novelList?.data?[indexPath.row]
+        guard let book_uuid = model?.book_uuid else{
             self.view.makeToast(RD_localized("没有书籍id", ""))
             return
         }
         let detailVC = BookDetailVC.init(collectionViewLayout: UICollectionViewFlowLayout.init())
         detailVC.book_uuid = book_uuid
+        detailVC.title = model?.title
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
     /*

@@ -71,9 +71,10 @@ class RDBookShelfVC: BaseCollectionVC {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let item = self.shelfBooks[indexPath.row]
-        let novelListVC = NovelListVC.init()
-        novelListVC.bookItem = item
-        self.navigationController?.pushViewController(novelListVC, animated: true)
+        self.loadReadData(bookModel: item)
+//        let novelListVC = NovelListVC.init()
+//        novelListVC.bookItem = item
+//        self.navigationController?.pushViewController(novelListVC, animated: true)
     }
 
 
@@ -132,6 +133,84 @@ extension RDBookShelfVC{
         }) {[weak self] (error) in
             self?.collectionView.mj_header?.endRefreshing()
             MyLog(error)
+        }
+    }
+}
+
+
+extension RDBookShelfVC{
+    
+    func loadReadData( bookModel : BookShelfModel?) {
+
+        
+        guard let item = bookModel else {
+            return
+        }
+        let  readModel = ReadModel.init(book_uuid: item.book_uuid)
+        readModel.bookName = item.title
+        readModel.bookAuthor = item.author
+        self.view.makeToastActivity(.center)
+        if let items = RD_DBManager.getSyncNovelList(novel_id: item.book_uuid),items.count > 0{
+            self.setupData(data: items,readModel: readModel)
+        }else{
+            
+            RDBookNetManager.novelChapterNetWork(novel_id: item.book_uuid, success: {[weak self] (response) in
+                guard let weakSelf = self else{
+                    return
+                }
+                if let model = BaseModel.getModel(data: response),model.code == 200,let item = model.data as? Dictionary<String,Any>{
+                    let datas = item["data"]
+                    weakSelf.setupData(data: datas,readModel: readModel)
+                    RD_DBManager.share.updateNovelList(data: datas)
+                }else{
+                    weakSelf.view.hideToastActivity()
+                }
+                MyLog(response)
+
+            }) {[weak self] (error) in
+                self?.view.hideToastActivity()
+                MyLog(error)
+            }
+
+        }
+    }
+        
+    func setupData(data : Any?,readModel : ReadModel) {
+        
+        var models : [NovelChapterModel] = []
+        if let items = data as? Array<Any> {
+            for item in items {
+                guard let model = NovelChapterModel.getModel(data: item)  else {
+                    continue
+                }
+                models.append(model)
+            }
+            readModel.setListModels(models: models)
+        }
+    
+        if readModel.currentReadModel.pageModels.count > 0 {
+            self.view.hideToastActivity()
+            let readvc = ReadVC.init()
+            readvc.readModel = readModel
+            self.navigationController?.pushViewController(readvc, animated: true)
+        }else{
+            if let urlString = readModel.currentReadModel.url{
+                RDBookNetManager.novelChapterContentNetWork(url:RD_Content_Server + urlString, success: {[weak self] (response) in
+                    self?.view.hideToastActivity()
+
+                    if let content = response as? String{
+                        let readvc = ReadVC.init()
+                        readvc.readModel = readModel
+                        readModel.currentReadModel.setFullText(fullText: content)
+                        self?.navigationController?.pushViewController(readvc, animated: true)
+                    }
+                    MyLog(response)
+                    
+                }) {[weak self] (error) in
+                    self?.view.hideToastActivity()
+                    MyLog(error)
+                }
+            }
         }
     }
 }

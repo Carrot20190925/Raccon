@@ -87,6 +87,66 @@ class RDBookNetManager {
         let request = RDRequestFactory.bookRecommendRequest(book_uuid)
         RDNetManager.makeRequest(request: request, success: success, failure: failure)
     }
+    //MARK:- 加入书架
+    /**
+     加入书架
+     - parameter book_uuid: 书籍id
+     - returns: RDRequest
+     */
+    public static func addBookSelfNetwork(_ book_uuid : String, success:@escaping RDNetSuccess,failure:@escaping RDNetFailure) {
+        let request = RDRequestFactory.addBookSelfRequest(book_uuid)
+        RDNetManager.makeRequest(request: request, success: success, failure: failure)
+    }
+    //MARK:- 删除书架
+    /**
+     删除书架
+     - parameter book_uuid: 书籍id
+     - returns: RDRequest
+     */
+    public static func deleteBookSelfNetwork(_ book_uuid : String, success:@escaping RDNetSuccess,failure:@escaping RDNetFailure) {
+        let request = RDRequestFactory.deleteBookSelfRequest(book_uuid)
+        RDNetManager.makeRequest(request: request, success: success, failure: failure)
+    }
+    //MARK:- 加入收藏
+    /**
+     加入收藏
+     - parameter book_uuid: 书籍id
+     - returns: RDRequest
+     */
+    public static func addCollectionNetwork(_ book_uuid : String, success:@escaping RDNetSuccess,failure:@escaping RDNetFailure) {
+        let request = RDRequestFactory.addCollectionRequest(book_uuid)
+        RDNetManager.makeRequest(request: request, success: success, failure: failure)
+    }
+    //MARK:- 删除收藏
+    /**
+     删除收藏
+     - parameter book_uuid: 书籍id
+     - returns: RDRequest
+     */
+    public static func deleteCollectionNetwork(_ book_uuid : String, success:@escaping RDNetSuccess,failure:@escaping RDNetFailure) {
+        let request = RDRequestFactory.deleteCollectionRequest(book_uuid)
+        RDNetManager.makeRequest(request: request, success: success, failure: failure)
+    }
+    //MARK:- 收藏列表
+    /**
+     收藏列表
+     - returns: RDRequest
+     */
+    public static func collectionListNetwork( success:@escaping RDNetSuccess,failure:@escaping RDNetFailure) {
+        let request = RDRequestFactory.collectionListRequest()
+        RDNetManager.makeRequest(request: request, success: success, failure: failure)
+    }
+    //MARK:-  配置接口
+    /**
+     配置接口
+     - returns: RDRequest
+     */
+    public static func getConfigNetwork( success:@escaping RDNetSuccess,failure:@escaping RDNetFailure) {
+        let request = RDRequestFactory.getConfigRequest()
+        RDNetManager.makeRequest(request: request, success: success, failure: failure)
+    }
+    
+    
     
     
 }

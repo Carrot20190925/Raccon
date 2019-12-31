@@ -229,7 +229,7 @@ class ParserReadModel:NSObject,NSSecureCoding,NSCopying {
             model.setFullText(fullText: content)
         }else{
             if let urlString = url{
-                RDBookNetManager.novelChapterContentNetWork(url:RD_Base_Server_Url + "/TestNovelContent", success: { (response) in
+                RDBookNetManager.novelChapterContentNetWork(url: RD_Content_Server + urlString, success: { (response) in
                     if let content = response as? String{
                         model.setFullText(fullText: content)
                         ContentManager.share.saveContent(chapter_no: chapter_no, novel_id: novel_id, content: content)
@@ -345,7 +345,7 @@ class ParserReadModel:NSObject,NSSecureCoding,NSCopying {
         if page.intValue < (self.ranges.count - 1) {
             self.location = NSNumber.init(value: self.ranges[page.intValue].location)
         }
-        DZMKeyedArchiver.archiver(folderName: "\(self.novel_id)", fileName: "\(self.novel_id)", object: self)
+        DZMKeyedArchiver.archiver(folderName: "\(self.novel_id!)", fileName: "\(self.novel_id!)", object: self)
     }
     
     

@@ -90,6 +90,68 @@ class RDRequestFactory {
         return RDRequest.init(method: "GET", url: RD_Base_Server_Url + RD_Recommend_Api, paramters: params, authorHeader: nil)
     }
     
+    //MARK:- 加入书架
+    /**
+     加入书架
+     - parameter book_uuid: 书籍id
+     - returns: RDRequest
+     */
+    public static func addBookSelfRequest(_ book_uuid : String) -> RDRequest{
+        let params = ["book_uuid":book_uuid]
+        return RDRequest.init(method: "POST", url: RD_Base_Server_Url + RD_BookShelf_Api, paramters: params, authorHeader: nil)
+    }
+    //MARK:- 删除书架
+    /**
+     删除书架
+     - parameter book_uuid: 书籍id
+     - returns: RDRequest
+     */
+    public static func deleteBookSelfRequest(_ book_uuid : String) -> RDRequest{
+        let params = ["book_uuid":book_uuid]
+        return RDRequest.init(method: "DELETE", url: RD_Base_Server_Url + RD_BookShelf_Api, paramters: params, authorHeader: nil)
+    }
+    
+    
+    //MARK:- 删除收藏
+    /**
+     删除收藏
+     - parameter book_uuid: 书籍id
+     - returns: RDRequest
+     */
+    public static func deleteCollectionRequest(_ book_uuid : String) -> RDRequest{
+        let params = ["book_uuid":book_uuid]
+        return RDRequest.init(method: "DELETE", url: RD_Base_Server_Url + RD_Favorites_Api, paramters: params, authorHeader: nil)
+    }
+    
+    //MARK:- 加入收藏
+    /**
+     加入收藏
+     - parameter book_uuid: 书籍id
+     - returns: RDRequest
+     */
+    public static func addCollectionRequest(_ book_uuid : String) -> RDRequest{
+        let params = ["book_uuid":book_uuid]
+        return RDRequest.init(method: "POST", url: RD_Base_Server_Url + RD_Favorites_Api, paramters: params, authorHeader: nil)
+    }
+    //MARK:- 收藏列表
+    /**
+     收藏列表
+     - returns: RDRequest
+     */
+    public static func collectionListRequest() -> RDRequest{
+        return RDRequest.init(method: "GET", url: RD_Base_Server_Url + RD_Favorites_Api, paramters: nil, authorHeader: nil)
+    }
+    //MARK:-  配置接口
+    /**
+     配置接口
+     - returns: RDRequest
+     */
+    public static func getConfigRequest() -> RDRequest{
+        return RDRequest.init(method: "GET", url: RD_Base_Server_Url + RD_Config_Api, paramters: nil, authorHeader: nil)
+    }
+    
+    
+    
 
 
     

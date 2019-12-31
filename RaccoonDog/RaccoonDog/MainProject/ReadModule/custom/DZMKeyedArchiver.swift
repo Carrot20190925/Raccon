@@ -14,35 +14,37 @@ import UIKit
 class DZMKeyedArchiver: NSObject {
     
     /// 归档文件
-    class func archiver(folderName:String!, fileName:String!, object:AnyObject) {
+    class func archiver(folderName:String, fileName:String, object:AnyObject) {
         
-        var path = DZM_READ_DOCUMENT_DIRECTORY_PATH + "/\(DZM_READ_FOLDER_NAME)/\(folderName!)"
+        var path = DZM_READ_DOCUMENT_DIRECTORY_PATH + "/\(DZM_READ_FOLDER_NAME)/\(folderName)"
         
         if creat_file(path: path) { // 创建文件夹成功或者文件夹存在
             
-            path += "/\(fileName!)"
+            path += "/\(fileName)"
             
             NSKeyedArchiver.archiveRootObject(object, toFile: path)
         }
     }
     
     /// 解档文件
-    class func unarchiver(folderName:String!, fileName:String!) ->AnyObject? {
+    class func unarchiver(folderName:String, fileName:String) ->AnyObject? {
         
-        let path = DZM_READ_DOCUMENT_DIRECTORY_PATH + "/\(DZM_READ_FOLDER_NAME)/\(folderName!)/\(fileName!)"
+        let path = DZM_READ_DOCUMENT_DIRECTORY_PATH + "/\(DZM_READ_FOLDER_NAME)/\(folderName)/\(fileName)"
         
         return NSKeyedUnarchiver.unarchiveObject(withFile: path) as AnyObject?
     }
     
     /// 删除归档文件
-    class func remove(folderName:String!, fileName:String? = nil) ->Bool {
+    class func remove(folderName:String, fileName:String) ->Bool {
         
-        var path = DZM_READ_DOCUMENT_DIRECTORY_PATH + "/\(DZM_READ_FOLDER_NAME)/\(folderName!)"
+        let path = DZM_READ_DOCUMENT_DIRECTORY_PATH + "/\(DZM_READ_FOLDER_NAME)/\(folderName)/\(fileName)"
         
-        if fileName != nil && !fileName!.isEmpty { path += "/\(fileName!)" }
+//        if fileName != nil && !fileName!.isEmpty { path += "/\(fileName!)" }
         
         do{
-            try FileManager.default.removeItem(atPath: path)
+            if FileManager.default.fileExists(atPath: path) {
+                try FileManager.default.removeItem(atPath: path)
+            }
             
             return true
             

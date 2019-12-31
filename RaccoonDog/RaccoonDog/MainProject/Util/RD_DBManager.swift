@@ -161,8 +161,8 @@ class RD_DBManager {
     
     
     static func getSyncNovelList(novel_id : String) -> [Any]?{
-        let sql = "select * from novel_list where novel_id = \(novel_id)"
-        if let result = RD_DBManager.share.getDB()?.executeQuery(sql, withArgumentsIn: []){
+        let sql = "select * from novel_list where novel_id = ?"
+        if let result = RD_DBManager.share.getDB()?.executeQuery(sql, withArgumentsIn: [novel_id]){
             var datas : [Dictionary <String,Any?>] = []
             while result.next(){
                 let novel_id = result.string(forColumn: "novel_id")
@@ -196,8 +196,8 @@ class RD_DBManager {
     //MARK:-  获取数据
     static func getNovelList(novel_id : String,complete:@escaping DatabaseHandle){
         RD_DBManager.share.getDBQueue()?.inTransaction({ (db, stop) in
-            let sql = "select * from novel_list where novel_id = \(novel_id)"
-            let result = db.executeQuery(sql, withArgumentsIn: [])
+            let sql = "select * from novel_list where novel_id = ?"
+            let result = db.executeQuery(sql, withArgumentsIn: [novel_id])
             var datas : [Dictionary <String,Any?>] = []
             while result?.next() ?? false{
                 let novel_id = result!.string(forColumn: "novel_id")

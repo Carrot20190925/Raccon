@@ -9,6 +9,9 @@
 import Foundation
 //let RD_Base_Server_Url = "http://10.10.35.65:8081/api/v1"
 let RD_Base_Server_Url = "http://10.10.35.201:8081/api/v1"
+
+let RD_Content_Server = "http://novelbase.oss-cn-hongkong.aliyuncs.com/"
+let RD_Image_Server = "http://novelpicture.oss-cn-hongkong.aliyuncs.com/"
 //10.10.31.77:8080:8081/api/v1
 //http://192.168.31.169:8081/
 

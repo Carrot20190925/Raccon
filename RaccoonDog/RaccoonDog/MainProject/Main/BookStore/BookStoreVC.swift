@@ -127,6 +127,13 @@ extension BookStoreVC:UIScrollViewDelegate{
     
     
     @objc func titleAction(sender:UIButton){
+        if self.seletedBtn == sender {
+            return
+        }
+        self.seletedBtn?.isSelected = false
+        sender.isSelected = true
+        self.seletedBtn = sender
+        self.indicator.center = CGPoint.init(x: sender.center.x, y: sender.mj_y + sender.mj_h)
     
         
 //        self.setupScrollView(sender: sender)

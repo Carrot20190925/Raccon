@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DZMRMFuncView: BaseView {
+class ReadBottomView: BaseView {
 
     weak var delegate : ReadMenuProtocol?
     /// 目录

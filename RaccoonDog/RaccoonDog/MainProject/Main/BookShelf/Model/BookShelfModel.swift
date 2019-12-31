@@ -77,7 +77,6 @@ class BookShelfModel {
 
         
         let model = BookShelfModel.init(book_uuid: book_uuid)
-//        model.book_uuid = book_uuid
 
         model.is_on_bookshelf = item["is_on_bookshelf"] as? Bool
         if let bookshelf_num = item["bookshelf_num"] as? Int {

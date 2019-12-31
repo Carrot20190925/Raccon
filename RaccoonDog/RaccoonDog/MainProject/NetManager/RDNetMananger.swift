@@ -39,28 +39,36 @@ class RDNetManager:NSObject {
             }
         }
         
-        var dataRequest : DataRequest?
-        switch request.method {
-        case "GET":
-            dataRequest = AF.request(request.url, method: .get, parameters: request.paramters, encoding: URLEncoding.default, headers: httpHeaders, interceptor: nil)
-            break
-        case "POST":
-            dataRequest = AF.request(request.url, method: .post, parameters: request.paramters, encoding: URLEncoding.default, headers: httpHeaders, interceptor: nil)
-            break
-        case "DELETE":
-            dataRequest = AF.request(request.url, method: .delete, parameters: request.paramters, encoding: URLEncoding.default, headers: httpHeaders, interceptor: nil)
-            break
-        case "PUT":
-            dataRequest = AF.request(request.url, method: .put, parameters: request.paramters, encoding: URLEncoding.default, headers: httpHeaders, interceptor: nil)
-            break
-        default:
-            break
-        }
-        if let request = dataRequest {
-            request.responseString(completionHandler: { (response) in
-                requestComplete(response.response,response.result)
-            })
-        }
+        var downloadRequest : DownloadRequest?
+        
+        downloadRequest = AF.download(request.url)
+
+        downloadRequest?.responseString(queue: DispatchQueue.main, encoding: String.Encoding.utf8, completionHandler: { (response) in
+            requestComplete(response.response,response.result)
+
+        })
+//        switch request.method {
+//        case "GET":
+//            downloadRequest = AF.download(request.url)
+//            dataRequest = AF.request(request.url, method: .get, parameters: request.paramters, encoding: URLEncoding.default, headers: httpHeaders, interceptor: nil)
+//            break
+//        case "POST":
+//            dataRequest = AF.request(request.url, method: .post, parameters: request.paramters, encoding: URLEncoding.default, headers: httpHeaders, interceptor: nil)
+//            break
+//        case "DELETE":
+//            dataRequest = AF.request(request.url, method: .delete, parameters: request.paramters, encoding: URLEncoding.default, headers: httpHeaders, interceptor: nil)
+//            break
+//        case "PUT":
+//            dataRequest = AF.request(request.url, method: .put, parameters: request.paramters, encoding: URLEncoding.default, headers: httpHeaders, interceptor: nil)
+//            break
+//        default:
+//            break
+//        }
+//        if let request = dataRequest {
+//            request.responseString(completionHandler: { (response) in
+//                requestComplete(response.response,response.result)
+//            })
+//        }
         
         
     }

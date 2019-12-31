@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+let RD_Resign_Active_Notification = "RD_Resign_Active_Notification"
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -29,6 +29,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        MyLog("保存失败")
         // Override point for customization after application launch.
         return true
+    }
+    
+    func applicationWillResignActive(_ application: UIApplication) {
+        NotificationCenter.default.post(name: NSNotification.Name.init(RD_Resign_Active_Notification), object: nil)
     }
     
     

@@ -19,6 +19,9 @@ class BookDetailHeadView: BaseReusableView {
     
     @IBOutlet weak var showBtn: UIButton!
     
+    var action : ((_ type : Int) -> Void)?
+    
+    
     var item : BookShelfModel?
     
     
@@ -31,7 +34,15 @@ class BookDetailHeadView: BaseReusableView {
         if let url = model.face {
             self.imageView.setImage(urlString: url)
         }
-
+        let button = self.actionBtns[0]
+        if let onShelf = bookModel?.is_on_bookshelf,onShelf {
+            button.isUserInteractionEnabled = false
+            button.setTitle(RD_localized("已加书架", ""), for: .normal)
+        }else{
+            button.setTitle(RD_localized("加入书架", ""), for: .normal)
+            button.isUserInteractionEnabled = true
+        }
+        
 
         
         if let bookName = model.title {
@@ -128,7 +139,9 @@ class BookDetailHeadView: BaseReusableView {
     }
     
     @IBAction func showAction(_ sender: UIButton) {
+        self.action?(10)
     }
     @IBAction func actions(_ sender: UIButton) {
+        self.action?(sender.tag)
     }
 }

@@ -18,26 +18,48 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UHf-GH-uTF">
-                        <rect key="frame" x="15" y="10" width="46" height="30"/>
-                        <state key="normal" title="Button"/>
+                        <rect key="frame" x="15" y="10" width="31" height="30"/>
+                        <state key="normal" title="目录"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VZH-bx-HYd" customClass="ImageRightButton" customModule="RaccoonDog" customModuleProvider="target">
                         <rect key="frame" x="386" y="10" width="46" height="30"/>
                         <state key="normal" title="Button"/>
                     </button>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4rt-U6-kty">
+                        <rect key="frame" x="0.0" y="45" width="447" height="5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="5" id="j52-bG-Jhx"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CVQ-oZ-VSR">
+                        <rect key="frame" x="15" y="0.0" width="417" height="0.5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="Nso-ar-9fY"/>
+                        </constraints>
+                    </view>
                 </subviews>
             </view>
             <constraints>
+                <constraint firstItem="CVQ-oZ-VSR" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="0Dd-cq-ojW"/>
+                <constraint firstItem="4rt-U6-kty" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="EPH-OQ-6if"/>
+                <constraint firstAttribute="trailing" secondItem="4rt-U6-kty" secondAttribute="trailing" id="H0E-LM-vSU"/>
                 <constraint firstAttribute="trailing" secondItem="VZH-bx-HYd" secondAttribute="trailing" constant="15" id="Iax-DT-xd0"/>
+                <constraint firstItem="CVQ-oZ-VSR" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="15" id="Jmi-Jh-aic"/>
                 <constraint firstItem="UHf-GH-uTF" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="15" id="NjC-jJ-3kO"/>
+                <constraint firstAttribute="bottom" secondItem="4rt-U6-kty" secondAttribute="bottom" id="Qbw-RH-aOR"/>
+                <constraint firstAttribute="trailing" secondItem="CVQ-oZ-VSR" secondAttribute="trailing" constant="15" id="pTi-Gd-AU9"/>
                 <constraint firstItem="VZH-bx-HYd" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="vqn-7a-i3s"/>
                 <constraint firstItem="UHf-GH-uTF" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="z3x-8v-IRN"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="447" height="50"/>
             <connections>
+                <outlet property="bottomSegment" destination="4rt-U6-kty" id="n5S-p6-Eq7"/>
                 <outlet property="firstBtn" destination="UHf-GH-uTF" id="5CX-gb-EnE"/>
                 <outlet property="secondBtn" destination="VZH-bx-HYd" id="9gG-RB-2xW"/>
+                <outlet property="topSegment" destination="CVQ-oZ-VSR" id="xaA-4B-7L3"/>
             </connections>
             <point key="canvasLocation" x="425.36231884057975" y="152.67857142857142"/>
         </collectionViewCell>

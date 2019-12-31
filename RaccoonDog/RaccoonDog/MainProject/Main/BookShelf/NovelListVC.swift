@@ -12,13 +12,14 @@ class NovelListVC: BaseTableController {
 
     var bookItem : BookShelfModel?
     var readModel : ReadModel?
-//    var listModels : [NovelChapterModel] = []
-//    var novel_id : Int = 0
+    var seletedChapter : (() -> Void)?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.showsVerticalScrollIndicator = false
+        self.tableView.showsHorizontalScrollIndicator = false
         self.tableView.register(BaseTableCell.self, forCellReuseIdentifier: "cell")
         self.tableView.rowHeight = 44;
-
         self.loadData()
         
         
@@ -72,38 +73,60 @@ class NovelListVC: BaseTableController {
                 read.save()
                 let currentModel = ParserReadModel.getModel(url: read.chapter_content, chapter_no: read.chapter_no, novel_id: read.novel_id, title: read.chapter_title)
                 currentModel.index = NSNumber.init(value: indexPath.row) 
-                self.readModel?.currentReadModel =  currentModel
+                readModel.currentReadModel =  currentModel
 
             }
         }
         
-        if self.readModel?.currentReadModel.pageModels.count ?? 0 > 0 {
-            let readvc = ReadVC.init()
-            readvc.readModel = readModel
-            self.navigationController?.pushViewController(readvc, animated: true)
-        }else{
-            
-            if let urlString = self.readModel?.currentReadModel.url{
-                RDBookNetManager.novelChapterContentNetWork(url:RD_Base_Server_Url + "/TestNovelContent", success: {[weak self] (response) in
-                    if let content = response as? String{
-                        let readvc = ReadVC.init()
-                        readvc.readModel = readModel
-                        self?.readModel?.currentReadModel.setFullText(fullText: content)
-                        self?.navigationController?.pushViewController(readvc, animated: true)
+        
+        if let _ = self.bookItem {
+            if readModel.currentReadModel.pageModels.count > 0 {
+                let readvc = ReadVC.init()
+                readvc.readModel = readModel
+                self.navigationController?.pushViewController(readvc, animated: true)
+            }else{
+                
+                if let urlString = self.readModel?.currentReadModel.url{
+                    RDBookNetManager.novelChapterContentNetWork(url:RD_Content_Server + urlString, success: {[weak self] (response) in
+                        if let content = response as? String{
+                            let readvc = ReadVC.init()
+                            readvc.readModel = readModel
+                            self?.readModel?.currentReadModel.setFullText(fullText: content)
+                            self?.navigationController?.pushViewController(readvc, animated: true)
+                        }
+                        MyLog(response)
+                        
+                    }) { (error) in
+                        MyLog(error)
                     }
-                    MyLog(response)
-                    
-                }) { (error) in
-                    MyLog(error)
                 }
             }
 
+        }else{
+            
+                 ///来自阅读器
+            if readModel.currentReadModel.pageModels.count > 0 {
+                self.seletedChapter?()
+            }else{
+                
+                if let urlString = self.readModel?.currentReadModel.url{
+                    RDBookNetManager.novelChapterContentNetWork(url:RD_Content_Server + urlString, success: {[weak self] (response) in
+                        if let content = response as? String{
+                            self?.readModel?.currentReadModel.setFullText(fullText: content)
+                            self?.seletedChapter?()
+                        }
+                        MyLog(response)
+                        
+                    }) { (error) in
+                        MyLog(error)
+                    }
+                }
+            }
+       
+    
+            
         }
         
-        
-        
-
-
 
     }
 

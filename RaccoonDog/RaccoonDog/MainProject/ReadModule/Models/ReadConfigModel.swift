@@ -130,6 +130,9 @@ private var configure:ReadConfigModel?
 
 class ReadConfigModel{
 
+
+    var contentSever = RD_Content_Server
+    var imageSever = RD_Image_Server
     
     //翻页类型
     var effectType : RDEffectType = .simulation
@@ -244,6 +247,27 @@ class ReadConfigModel{
             if let fontSize = param["fontSize"] as? Int{
                 self.fontSize = fontSize
             }
+            
+            if let contentSever = param["contentSever"] as? String{
+                self.contentSever = contentSever
+            }
+            if let imageSever = param["imageSever"] as? String{
+                self.imageSever = imageSever
+            }
+        }
+        
+        RDBookNetManager.getConfigNetwork(success: { [weak self](response) in
+            if let model = BaseModel.getModel(data: response),model.code == 200,let data = model.data as? Dictionary<String,Any>{
+                if let contentSever = data["Chapter"] as? String{
+                    self?.contentSever = contentSever
+                }
+                if let imageSever = data["Img"] as? String {
+                    self?.imageSever = imageSever
+                }
+                self?.save()
+            }
+        }) { (error) in
+            
         }
     }
     
@@ -296,8 +320,10 @@ class ReadConfigModel{
                     "backgroudType":backgroudType.rawValue,
                     "fontSize":fontSize,
                     "fontType":fontType.rawValue,
-                    "spacingType":spacingType.rawValue
-        ]
+                    "spacingType":spacingType.rawValue,
+                    "contentSever":contentSever,
+                    "imageSever":imageSever
+            ] as [String : Any]
         UserDefaults.standard.set(param, forKey: RD_ReadConfigModelKey)
         UserDefaults.standard.synchronize()
     }
