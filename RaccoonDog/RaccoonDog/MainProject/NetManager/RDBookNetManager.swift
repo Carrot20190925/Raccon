@@ -37,4 +37,56 @@ class RDBookNetManager {
         let request = RDRequestFactory.novelChapterContentRequest(url: url)
         RDNetManager.makeContentRequest(request: request, success: success, failure: failure)
     }
+    
+    
+    //MARK:- 书城标题接口
+    /**
+     书城标题接口
+     - returns: RDRequest
+     */
+    public static func bookStoreNetWork( success:@escaping RDNetSuccess,failure:@escaping RDNetFailure) {
+        let request = RDRequestFactory.bookStoreRequest()
+        RDNetManager.makeRequest(request: request, success: success, failure: failure)
+    }
+    //MARK:- 精选列表接口
+    /**
+     精选列表接口
+     - returns: RDRequest
+     */
+    public static func bookStoreListNetWork( success:@escaping RDNetSuccess,failure:@escaping RDNetFailure) {
+        let request = RDRequestFactory.bookStoreListRequest()
+        RDNetManager.makeRequest(request: request, success: success, failure: failure)
+    }
+    //MARK:- banner接口
+    /**
+     banner接口
+     - parameter poster_type:  默认0书柜，1书城，2有声
+     - returns: RDRequest
+     */
+    public static func bookBannerNetwork(_ poster_type:Int = 0, success:@escaping RDNetSuccess,failure:@escaping RDNetFailure) {
+        let request = RDRequestFactory.bookBannerRequest(poster_type)
+        RDNetManager.makeRequest(request: request, success: success, failure: failure)
+    }
+    //MARK:- 小说详情
+    /**
+     小说详情
+     - parameter book_uuid:  书籍id
+     - returns: RDRequest
+     */
+    public static func bookInfoNetwork(_ book_uuid : String, success:@escaping RDNetSuccess,failure:@escaping RDNetFailure) {
+        let request = RDRequestFactory.bookInfoRequest(book_uuid)
+        RDNetManager.makeRequest(request: request, success: success, failure: failure)
+    }
+    //MARK:- 推荐
+    /**
+     推荐接口
+     - parameter book_uuid: 书籍id
+     - returns: RDRequest
+     */
+    public static func bookRecommendNetwork(_ book_uuid : String, success:@escaping RDNetSuccess,failure:@escaping RDNetFailure) {
+        let request = RDRequestFactory.bookRecommendRequest(book_uuid)
+        RDNetManager.makeRequest(request: request, success: success, failure: failure)
+    }
+    
+    
 }

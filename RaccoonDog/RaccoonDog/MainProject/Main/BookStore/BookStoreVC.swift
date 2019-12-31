@@ -9,6 +9,8 @@
 import UIKit
 class BookStoreVC: BaseController {
     
+    
+    var models : [BookStoreModel] = []
     var seletedBtn : UIButton?
     var indicator = UIView.init(frame: CGRect.init(x: 0, y: 0, width: 30, height: 2))
     var titleView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: rScreenWidth, height: NavgationBarHeight))
@@ -24,8 +26,9 @@ class BookStoreVC: BaseController {
         self.titleView.addSubview(self.titleScrollView)
         self.titleView.addSubview(searchButton)
         self.view.addSubview(self.bodyView)
-        
-        self.initSubViews()
+        self.bodyView.isScrollEnabled = false
+        self.loadData()
+//        self.initSubViews()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -78,18 +81,18 @@ extension BookStoreVC:UIScrollViewDelegate{
         self.titleScrollView.showsHorizontalScrollIndicator = false
         self.searchButton.setTitle("搜索", for: .normal)
         self.searchButton.sizeToFit()
-//        self.searchButton.s
         self.searchButton.setTitleColor(TXTheme.titleColor(), for: .normal)
         self.titleScrollView.delegate = self;
         self.bodyView.delegate = self;
-        let titles = ["精选","男生","女生","漫画","精选","男生","女生","漫画"];
+        let titleModels :  [BookStoreModel] = self.models;
         let space : CGFloat = 30
         var x : CGFloat = 20
         self.titleBtns.removeAll()
-        for (index,title) in titles.enumerated() {
+        for (index,item) in titleModels.enumerated() {
+            
             let button = UIButton.init(type: .custom)
 
-            button.setTitle(title, for: .normal)
+            button.setTitle(item.module_title, for: .normal)
             button.sizeToFit()
             button.tag = index
             button.frame = CGRect.init(x: x, y: 0, width: button.mj_w, height: button.mj_h)
@@ -101,35 +104,44 @@ extension BookStoreVC:UIScrollViewDelegate{
                 self.indicator.center = CGPoint.init(x: button.center.x, y: button.mj_h + button.mj_y)
             }
             button.setTitleColor(TXTheme.titleColor(), for: .normal)
-
             button.setTitleColor(TXTheme.themeColor(), for: .selected)
-
             self.titleScrollView.addSubview(button)
             x = x + button.mj_w + space
+            
+            if index > 0 {
+                continue
+            }
             let listVC = BookStoreListVC.init(collectionViewLayout: UICollectionViewFlowLayout.init())
             listVC.view.frame = CGRect.init(x: CGFloat.init(integerLiteral: index) * rScreenWidth, y: 0, width: rScreenWidth, height: self.bodyView.mj_h)
-            if index % 2 == 0 {
-                listVC.collectionView.backgroundColor  = UIColor.gray
-            }
+
             self.addChild(listVC)
             
             self.bodyView.addSubview(listVC.view)
         }
         self.titleScrollView.addSubview(self.indicator)
-
         self.titleScrollView.contentSize = CGSize.init(width: x, height: NavgationBarHeight - StatusBarHeight)
-        self.bodyView.contentSize = CGSize.init(width: rScreenWidth * CGFloat.init(integerLiteral: titles.count), height: self.bodyView.mj_h)
+        self.bodyView.contentSize = CGSize.init(width: rScreenWidth * CGFloat.init(integerLiteral: titleModels.count), height: self.bodyView.mj_h)
         
     }
     
+    
+    
     @objc func titleAction(sender:UIButton){
+    
+        
+//        self.setupScrollView(sender: sender)
+    }
+    
+    
+    //MARK:-  处理滑动事件暂时不用
+    private func setupScrollView(sender:UIButton){
         if self.seletedBtn == sender {
             return
         }
+        
         let x = sender.center.x
         let titleContentViewW = self.titleScrollView.contentSize.width
         let halfW = self.titleScrollView.mj_w * 0.5
-//        var offsetX : CGFloat = 0
         
         if x > halfW,(x + halfW) < titleContentViewW  {
            let  offsetX = x - halfW
@@ -152,18 +164,12 @@ extension BookStoreVC:UIScrollViewDelegate{
             let totalOffsetX = scrollView.contentOffset.x;
             let currentX = CGFloat.init(integerLiteral: (self.seletedBtn?.tag ?? 0)) * scrollView.mj_w
             let offsetX = totalOffsetX - currentX
-//            if (offsetX) > 0 {//向右
-//
-//            }else{//向左
-//
-//            }
             
             let indicatorOffsetX =  offsetX * self.titleScrollView.contentSize.width / self.bodyView.contentSize.width
             let centerX = (self.seletedBtn?.center.x ?? 20.0) + indicatorOffsetX
             let centerY = (self.seletedBtn?.mj_y ?? 0)  + (self.seletedBtn?.mj_h ?? 0)
             self.indicator.center = CGPoint.init(x: centerX, y: centerY)
-//            let titleContentW = self.titleScrollView.contentSize.width
-//            let titleContentH = self.titleScrollView.contentSize.height
+
         }else{
             
         }
@@ -188,4 +194,31 @@ extension BookStoreVC:UIScrollViewDelegate{
     
     
     
+}
+
+extension BookStoreVC{
+    private func loadData(){
+        self.view.makeToastActivity(ToastPosition.center)
+        let firstModel = BookStoreModel.init(id: 100, title:  RD_localized("精选", ""))
+        self.models.append(firstModel)
+        RDBookNetManager.bookStoreNetWork(success: {[weak self] (response) in
+            self?.view.hideToastActivity()
+            if  let model = BaseModel.getModel(data: response),model.code == 200,let datas = model.data as? Array<Dictionary<String,Any>>{
+                
+                for item in datas {
+                    if let model = BookStoreModel.getModel(data: item){
+                        self?.models.append(model)
+                    }
+                }
+            }
+            self?.initSubViews()
+            MyLog(response)
+        }) { [weak self](error) in
+            self?.view.hideToastActivity()
+            MyLog(error)
+            self?.initSubViews()
+        }
+        
+        
+    }
 }

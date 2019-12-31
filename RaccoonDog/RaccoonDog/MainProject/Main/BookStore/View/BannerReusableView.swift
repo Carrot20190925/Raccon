@@ -28,7 +28,7 @@ class BannerReusableView: BaseReusableView {
         self.bannerView.backgroundColor = UIColor.green
         self.bannerView.layer.cornerRadius = 10
         self.bannerView.clipsToBounds = true
-        self.bannerView.models = ["ccc","d","xxxx"]
+//        self.bannerView.models = ["ccc","d","xxxx"]
         self.addSubview(self.bannerView)
         x = 0
         width = self.mj_w

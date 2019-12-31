@@ -8,7 +8,21 @@
 
 import UIKit
 
+protocol BannerViewDelegate:NSObjectProtocol {
+    func modelsCount() -> Int;
+    
+    func currentIndex(index : Int,imageView:BannerImageView) -> Void;
+    
+    func clickImageAction(index:Int) -> Void;
+}
+//extension BannerViewDelegate{
+//    func modelsCount() -> Int{}
+//}
+
+
 class BannerView: BaseView {
+    
+    weak var delegate : BannerViewDelegate!
 
     var pageControll : UIPageControl!
     let scrollView  = UIScrollView.init()
@@ -16,41 +30,58 @@ class BannerView: BaseView {
     var centerImageView : BannerImageView!
     var rightImageView : BannerImageView!
     var currentIndex = 0
-    var models : [String]  = ["xxx","ccc"]{
-        didSet{
-            if models.count < 1{
-                self.scrollView.isScrollEnabled = false
-                return
-            }
-            
-            if models.count == 1{
-                self.scrollView.isScrollEnabled = false
-            }else{
-                self.scrollView.isScrollEnabled = true
-            }
-            
-            self.resetAction()
-
-        }
-    }
+//    var models : [String]  = ["xxx","ccc"]{
+//        didSet{
+//            if models.count < 1{
+//                self.scrollView.isScrollEnabled = false
+//                return
+//            }
+//
+//            if models.count == 1{
+//                self.scrollView.isScrollEnabled = false
+//            }else{
+//                self.scrollView.isScrollEnabled = true
+//            }
+//
+//            self.resetAction()
+//
+//        }
+//    }
     
     
     
     func resetAction()  {
-        self.pageControll.numberOfPages = models.count
+        
+        guard let count  = self.delegate?.modelsCount() else{
+            return
+        }
+        
+        if count < 1{
+            self.scrollView.isScrollEnabled = false
+            return
+        }
+        
+        if count == 1{
+            self.scrollView.isScrollEnabled = false
+        }else{
+            self.scrollView.isScrollEnabled = true
+        }
+        
+        
+        self.pageControll.numberOfPages = count
         self.pageControll.sizeToFit()
         self.pageControll.mj_x = (self.mj_w - self.pageControll.mj_w) * 0.5
         self.pageControll.currentPage = 0
         self.currentIndex = 0
         self.scrollView.setContentOffset(CGPoint.init(x: self.scrollView.mj_w, y: 0), animated: false)
-        let count = models.count
-        if let  string = models[count - 1]  as String?  {
-            self.leftImageView.label.text = string
+        self.delegate?.currentIndex(index: count - 1, imageView: self.leftImageView)
+
+        
+        if (1) < count {
+            self.delegate?.currentIndex(index: 1, imageView: self.rightImageView)
         }
-        if (1) < count,let string = models[1] as String? {
-            self.rightImageView.label.text = string
-        }
-        self.centerImageView.label.text = models[self.currentIndex]
+        self.delegate?.currentIndex(index: self.currentIndex, imageView: self.centerImageView)
+        self.centerImageView.tag = self.currentIndex
     }
     
     override init(frame: CGRect) {
@@ -62,13 +93,18 @@ class BannerView: BaseView {
     }
     
     
+    
+    
     override func addSubviews() {
         super.addSubviews()
         let width = self.mj_w
         let height = self.mj_h
         self.scrollView.frame = self.bounds
+        let tap = UITapGestureRecognizer.init(target: self, action: #selector(tapAction))
+
         self.leftImageView = BannerImageView.init(frame:self.bounds)
         self.centerImageView = BannerImageView.init(frame: CGRect.init(x: width, y: 0, width: width, height: height))
+        self.centerImageView.addGestureRecognizer(tap)
         self.rightImageView = BannerImageView.init(frame: CGRect.init(x: width * 2, y: 0, width: width, height: height))
         self.scrollView.contentSize = CGSize.init(width: width * 3, height: height)
         self.addSubview(self.scrollView)
@@ -82,6 +118,11 @@ class BannerView: BaseView {
         
         
         
+    }
+    @objc
+    func tapAction()  {
+        let index = self.centerImageView.tag
+        self.delegate.clickImageAction(index: index)
     }
     
     
@@ -134,60 +175,66 @@ extension BannerView : UIScrollViewDelegate{
         let width = scrollView.mj_w
         if offsetx > (width  + width * 0.5) {//z向右
             var index = self.currentIndex + 1;
-            let count = self.models.count
-            if index < count ,let string = self.models[index] as String? {
-                self.centerImageView.label.text = string
+            let count = self.delegate.modelsCount()
+            if count == 0 {
+                return
+            }
+            if index < count  {
+                self.delegate.currentIndex(index: index, imageView: self.centerImageView)
                 
             }else{
                 index = 0
-                if let string = self.models[index] as String? {
-                    self.centerImageView.label.text = string
-                }
+                self.delegate.currentIndex(index: index, imageView: self.centerImageView)
+
             }
             
-            if self.currentIndex < count,let string = self.models[index] as String? {
-                self.leftImageView.label.text = string
+            if self.currentIndex < count{
+                self.delegate.currentIndex(index: self.currentIndex, imageView: self.leftImageView)
             }else{
-                self.leftImageView.label.text = self.models[0]
+                self.delegate.currentIndex(index: 0, imageView: self.leftImageView)
             }
-            if (index + 1) < count,let string = self.models[index + 1] as String? {
-                self.rightImageView.label.text = string
+            if (index + 1) < count {
+                self.delegate.currentIndex(index: (index + 1), imageView: self.rightImageView)
+
             }else{
-                self.rightImageView.label.text = self.models[0]
+                self.delegate.currentIndex(index: 0, imageView: self.rightImageView)
+
             }
             self.currentIndex = index
         }else if offsetx < width * 0.5 {//向左
             var index  = 0
-            let count = self.models.count
+            let count = self.delegate.modelsCount()
+            if count == 0 {
+                return
+            }
             if self.currentIndex > 0 {
                 index = self.currentIndex - 1;
             }else{
                 index = count - 1
             }
-            if index < count ,let string = self.models[index] as String? {
-                self.centerImageView.label.text = string
-                
-            }else{
+            if index >= count  {
                 index = 0
-                if let string = self.models[index] as String? {
-                    self.centerImageView.label.text = string
-                }
             }
             
-            if self.currentIndex < count,let string = self.models[index] as String? {
-                self.rightImageView.label.text = string
+            self.delegate.currentIndex(index: index, imageView: self.centerImageView)
+
+            
+            if self.currentIndex < count {
+                self.delegate.currentIndex(index: self.currentIndex, imageView: self.rightImageView)
             }else{
-                self.rightImageView.label.text = self.models[0]
+                self.delegate.currentIndex(index: 0, imageView: self.rightImageView)
             }
-            if (index - 1) > 0,(index - 1) <  count,let string = self.models[index - 1] as String? {
-                self.leftImageView.label.text = string
+            if (index - 1) >= 0,(index - 1) <  count {
+                self.delegate.currentIndex(index: index - 1, imageView: self.leftImageView)
             }else{
-                self.leftImageView.label.text = self.models[count - 1]
+                self.delegate.currentIndex(index: count - 1, imageView: self.leftImageView)
             }
             self.currentIndex = index
             
             
         }
+        self.centerImageView.tag = self.currentIndex
+
         self.pageControll.currentPage = self.currentIndex
         self.scrollView.setContentOffset(CGPoint.init(x: width, y: 0), animated: false)
 

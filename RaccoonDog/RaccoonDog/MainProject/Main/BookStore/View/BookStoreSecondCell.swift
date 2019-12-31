@@ -41,6 +41,7 @@ class BookStoreSecondCell: BaseCollectionCell {
         self.bookDescLabel.font = TXTheme.thirdTitleFont(size: 14)
         self.backSegmentView.backgroundColor = TXTheme.thirdColor()
         self.avatarImage.backgroundColor = UIColor.gray
+        self.bookScoreLabel.textAlignment = .center
         self.bookNameLabel.text = "xxx"
         self.bookScoreLabel.text = "xxx"
         self.bookAuthorLabel.text = "xxx"
@@ -57,7 +58,7 @@ class BookStoreSecondCell: BaseCollectionCell {
         self.addSubview(self.backSegmentView)
         let imageW = (rScreenWidth - 55) / 3.0
         let imageH = imageW * 130.0/108.0
-        let space = 0
+        let space = 15
         avatarImage.snp.makeConstraints {(make) in
             make.width.equalTo(imageW)
             make.height.equalTo(imageH)
@@ -104,7 +105,7 @@ class BookStoreSecondCell: BaseCollectionCell {
             make.height.equalTo(10)
             make.top.equalTo(avatarImage.snp.bottom).offset(15)
         }
-        self.backgroundColor = TXTheme.thirdColor()
+//        self.backgroundColor = TXTheme.thirdColor()
 //        self.contentView.backgroundColor = UIColor.white
         
     }

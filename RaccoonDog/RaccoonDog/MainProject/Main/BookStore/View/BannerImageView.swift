@@ -13,6 +13,7 @@ class BannerImageView: UIImageView {
     let label = UILabel.init()
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.isUserInteractionEnabled = true
         self.label.frame = self.bounds
         self.addSubview(self.label)
     }

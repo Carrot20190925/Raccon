@@ -9,9 +9,12 @@
 import Foundation
 import Kingfisher
 extension UIImageView{
-    func setImage(url:URL) {
-        let source = ImageResource.init(downloadURL: url)
-        self.kf.setImage(with: source)
+    func setImage(urlString:String) {
+        if  let url = URL.init(string: urlString){
+            let source = ImageResource.init(downloadURL: url)
+            self.kf.setImage(with: source)
+        }
+
 
 
     }

@@ -54,8 +54,8 @@ class RDBookShelfVC: BaseCollectionVC {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! BookStoreFirstCell
         let item = self.shelfBooks[indexPath.row]
-        if let face = item.face, let  url = URL.init(string: face){
-            cell.avatarImage.setImage(url: url)
+        if let face = item.face{
+            cell.avatarImage.setImage(urlString: face)
         }else{
             cell.avatarImage.image = UIImage.init(named: "")
         }

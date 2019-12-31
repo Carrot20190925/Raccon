@@ -28,17 +28,23 @@ class BookStoreFirstCell: BaseCollectionCell {
         self.bookAuthorLabel.text = "xxx"
         self.bookNameLabel.text = "xxx"
 
+        self.bookNameLabel.font = TXTheme.thirdTitleFont(size: 14)
+        self.bookNameLabel.textColor = TXTheme.eighthColor()
+        self.bookAuthorLabel.font = TXTheme.thirdTitleFont(size: 11)
+        self.bookAuthorLabel.textColor = TXTheme.tenthColor()
         avatarImage.snp.makeConstraints { (make) in
-            make.bottom.equalTo(bookNameLabel.snp.top).offset(-10)
+            make.bottom.equalTo(bookNameLabel.snp.top).offset(-7)
             make.height.equalTo(avatarImage.snp.width).multipliedBy(130.0/108.0)
             make.top.left.right.equalToSuperview()
         }
         bookAuthorLabel.snp.makeConstraints { (make) in
             make.left.equalToSuperview().offset(10)
+            make.right.equalToSuperview()
         }
         bookNameLabel.snp.makeConstraints { (make) in
-            make.bottom.equalTo(bookAuthorLabel.snp.top).offset(-10)
+            make.bottom.equalTo(bookAuthorLabel.snp.top).offset(-5)
             make.left.equalToSuperview().offset(10)
+            make.right.equalToSuperview()
         }
         
         

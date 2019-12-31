@@ -61,6 +61,8 @@ class TXTheme: NSObject {
     static func placeHoderColor() -> UIColor{
         return self.rgbColor(153, 153, 153)
     }
+    
+
 //MARK:-  主题色
     static func themeColor() -> UIColor{
         return self.rgbColor(28, 213, 153)
@@ -86,6 +88,23 @@ class TXTheme: NSObject {
     //MARK:-  书分颜色
     static func eleventhColor() -> UIColor {
         return self.rgbColor(138, 117, 112)
+    }
+    
+    //MARK:-  详情bode颜色
+    static func twelfthColor() -> UIColor{
+        return self.rgbColor(210, 210, 210)
+    }
+    //MARK:-  详请标签颜色
+    static func thirteenthColor() -> UIColor{
+        return self.rgbColor(102, 102, 102)
+    }
+    //MARK:-  分类背景色
+    static func categoryBackColor() -> UIColor{
+        return self.rgbColor(243, 245, 251)
+    }
+    //MARK:-  分类标题色
+    static func categoryTitleColor() -> UIColor{
+        return self.rgbColor(62, 62, 62)
     }
 
     

@@ -33,6 +33,7 @@ class BookShelfModel {
     var book_uuid : String!
     var source_url : String?
     var title : String?
+    var is_on_bookshelf : Bool?
     
     
     
@@ -41,6 +42,9 @@ class BookShelfModel {
     var source_domain : String?
     
     
+    
+//    "is_on_bookshelf": false,
+//    "is_show": "on",
 //    "author": "唐家三少",
 //    "bookshelf_num": 0,
 //    "cate_id": 1,
@@ -75,6 +79,7 @@ class BookShelfModel {
         let model = BookShelfModel.init(book_uuid: book_uuid)
 //        model.book_uuid = book_uuid
 
+        model.is_on_bookshelf = item["is_on_bookshelf"] as? Bool
         if let bookshelf_num = item["bookshelf_num"] as? Int {
             model.bookshelf_num = bookshelf_num
         }

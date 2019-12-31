@@ -10,24 +10,32 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
+enum CategoryListType {
+    case Defalut
+    case one
+}
 class CategoryListVC: BaseCollectionVC {
     var firstSectionSize : CGSize!
-    var secondSectionSize : CGSize!
+//    var secondSectionSize : CGSize!
 //    var books
+    var type  = CategoryListType.Defalut
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let width = (rScreenWidth - 55) / 3.0
-        let height = width * 130.0/108.0
-        self.firstSectionSize = CGSize.init(width: width, height: height + 60)
+        let width = (rScreenWidth - 66) / 2.0
+        let height = width * 87.0/154.0
+        self.firstSectionSize = CGSize.init(width: width, height: height)
         
-        self.secondSectionSize = CGSize.init(width: rScreenWidth - 32, height: height + 10 + 16 + 10)
+//        self.secondSectionSize = CGSize.init(width: rScreenWidth - 32, height: height + 10 + 16 + 10)
 //        self.collectionView.backgroundColor = UIColor.green
         // Register cell classes
-        self.collectionView!.register(BookStoreSecondCell.self, forCellWithReuseIdentifier: "BookStoreSecondCell")
+        
+        self.collectionView.register(UINib.init(nibName: "CategoryCell", bundle: Bundle.main), forCellWithReuseIdentifier: "CategoryCell")
+//        self.collectionView!.register(BookStoreSecondCell.self, forCellWithReuseIdentifier: "BookStoreSecondCell")
 
-        self.collectionView!.register(BookStoreFirstCell.self, forCellWithReuseIdentifier: "BookStoreFirstCell")
-        self.collectionView.register(BannerReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "BannerReusableView")
+//        self.collectionView!.register(BookStoreFirstCell.self, forCellWithReuseIdentifier: "BookStoreFirstCell")
+//        self.collectionView.register(BannerReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "BannerReusableView")
 
         // Do any additional setup after loading the view.
     }
@@ -47,7 +55,7 @@ class CategoryListVC: BaseCollectionVC {
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 2
+        return 1
     }
 
 
@@ -57,48 +65,40 @@ class CategoryListVC: BaseCollectionVC {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.section == 0 {
-            
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BookStoreFirstCell", for: indexPath) as! BookStoreFirstCell
-            return cell
-
-        }else{
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BookStoreSecondCell", for: indexPath) as! BookStoreSecondCell
-            return cell
-
-        }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCell", for: indexPath) as! CategoryCell
+        return cell
     
         // Configure the cell
     
     }
     
-    
-    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == UICollectionView.elementKindSectionHeader {
-            let headView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "BannerReusableView", for: indexPath) as! BannerReusableView
-            headView.selectedCategory = { type in
-                switch type {
-                case 0://分类
-                    break
-                case 1://榜单
-                    break;
-                case 2://完结
-                    break;
-                case 3://出版
-                    break
-                    
-                default:
-                    break
-                }
-            }
-            return headView
-        }else{
-            let headView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "BannerReusableView", for: indexPath)
-            return headView
-            
-        }
-
-    }
+//
+//    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+//        if kind == UICollectionView.elementKindSectionHeader {
+//            let headView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "BannerReusableView", for: indexPath) as! BannerReusableView
+//            headView.selectedCategory = { type in
+//                switch type {
+//                case 0://分类
+//                    break
+//                case 1://榜单
+//                    break;
+//                case 2://完结
+//                    break;
+//                case 3://出版
+//                    break
+//
+//                default:
+//                    break
+//                }
+//            }
+//            return headView
+//        }else{
+//            let headView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "BannerReusableView", for: indexPath)
+//            return headView
+//
+//        }
+//
+//    }
     
     
     
@@ -139,24 +139,12 @@ class CategoryListVC: BaseCollectionVC {
 
 extension CategoryListVC:UICollectionViewDelegateFlowLayout{
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        if section == 0 {
-            var width = rScreenWidth  - 16 * 2;
-            var height = width * 150.0/343.0 + 115.0
-            return CGSize.init(width: rScreenWidth, height: height)
-        }
-        return CGSize.zero
-    }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if indexPath.section == 0 {
-            return self.firstSectionSize
-        }else{
-            return self.secondSectionSize
-        }
+        return self.firstSectionSize
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets{
-        return UIEdgeInsets.init(top: 15, left: 16, bottom: 0, right: 16)
+        return UIEdgeInsets.init(top: 15, left: 23, bottom: 0, right: 23)
     }
     
     func loadData()  {
