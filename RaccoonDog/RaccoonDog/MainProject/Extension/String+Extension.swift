@@ -159,6 +159,22 @@ extension String {
         
         return string.boundingRect(with: size, options: [.usesLineFragmentOrigin,.usesFontLeading], attributes: [.font:font], context: nil).size
     }
+    private func twoSpace() ->String{
+        return "\u{3000}\u{3000}"
+    }
+    func formatContent() -> String {
+        var string = self.replacingOccurrences(of: "\r", with: "")
+        string = string.replacingOccurrences(of: " ", with: "")
+        string = string.replacingOccurrences(of: "\u{3000}", with: "")
+        string = string.replacingOccurrences(of: "\t", with: "")
+        string = string.replacingOccurrences(of: "\n\n\n\n\n", with: "\n")
+        string = string.replacingOccurrences(of: "\n\n\n\n", with: "\n")
+        string = string.replacingOccurrences(of: "\n\n\n", with: "\n")
+        string = string.replacingOccurrences(of: "\n\n", with: "\n")
+        string = string.replacingOccurrences(of: "\n", with: "\n\(self.twoSpace())")
+        string = "\(self.twoSpace())\(string)"
+        return string
+    }
 }
 
 extension NSAttributedString {

@@ -14,9 +14,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    
+        ///初始化单例
+        ReadConfigModel.shared()
         self.window = UIWindow.init(frame: UIScreen.main.bounds)
-        if let localAccount = RDAccountManager.share.localAccount() {
+        if let _ = RDAccountManager.share.localAccount() {
             self.window?.rootViewController = BaseTabBarController.init()
         }else{
             let loginVC = RDLoginController.init()
@@ -42,6 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
 
+    
 
 
 

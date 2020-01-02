@@ -20,6 +20,8 @@ public extension String {
 //
 //}
 
+
+
 class TXTheme: NSObject {
     @objc
     class func font(name:String,size:CGFloat) -> UIFont {
@@ -106,7 +108,14 @@ class TXTheme: NSObject {
     static func categoryTitleColor() -> UIColor{
         return self.rgbColor(62, 62, 62)
     }
+    
+    //MARK:-  阅读器设置字体
+    static func readSetColor() -> UIColor{
+        return self.rgbColor(192, 87, 95)
+    }
 
+    
+    
     
     
     

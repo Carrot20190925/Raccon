@@ -13,11 +13,21 @@ protocol ReadMenuProtocol:NSObjectProtocol {
     ///改变日夜模式
     func changeDayNight()
     ///目录展示
-    func showList()
+    func showListView()
     ///设置展示
-    func showSet()
+    func showSetView()
 
 
+}
+
+
+protocol ReadSetProtocol: NSObjectProtocol {
+    func setLightProgerss();
+    func setFontSize();
+    func setEffect();
+    func setFont();
+    func setBackgroud();
+    func setSpace();
 }
 
 extension ReadMenuProtocol{
@@ -25,7 +35,7 @@ extension ReadMenuProtocol{
     ///改变日夜模式
     func changeDayNight(){}
     ///目录展示
-    func showList(){}
+    func showListView(){}
     ///设置展示
-    func showSet(){}
+    func showSetView(){}
 }

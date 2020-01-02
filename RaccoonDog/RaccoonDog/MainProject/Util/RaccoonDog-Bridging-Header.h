@@ -6,3 +6,4 @@
 #import "PhoneNumberUtil.h"
 #import "NSObject+OWS.h"
 #import "FunctionalUtil.h"
+#import "DZMCoverController.h"

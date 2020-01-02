@@ -46,6 +46,14 @@ let RD_SPACE_23 : CGFloat = 23
 let RD_SPACE_24 : CGFloat = 24
 
 
+//[TXTheme.rgbColor(255, 255, 255),
+//                     TXTheme.rgbColor(236, 224, 204),
+//                     TXTheme.rgbColor(212, 237, 208),
+//                     TXTheme.rgbColor(243, 226, 175),
+//                     TXTheme.rgbColor(211, 232, 240)
+//                   ]
+
+
 
 ///
 let RD_READ_FONT_SIZE_SPACE_TITLE : CGFloat = 8
@@ -62,7 +70,7 @@ enum RDBookSourceType:Int {
 /// 阅读翻页类型
 enum RDEffectType:Int {
     /// 仿真
-    case simulation
+    case simulation = 0
     /// 平移
     case translation
     /// 滚动
@@ -74,7 +82,7 @@ enum RDEffectType:Int {
 /// 阅读字体类型
 enum RDFontType:Int {
     /// 系统
-    case system
+    case system = 0
     /// 黑体
     case one
     /// 楷体
@@ -85,12 +93,14 @@ enum RDFontType:Int {
 
 /// 阅读内容间距类型
 enum RDSpacingType:Int {
-    /// 大间距
-    case big
+    /// 小间距
+    case small = 0
     /// 适中间距
     case middle
-    /// 小间距
-    case small
+    /// 大间距
+    case big
+
+
 }
 
 /// 阅读进度类型
@@ -114,7 +124,7 @@ enum RDPageHeadType:Int {
 
 /// 背景类型
 enum RDBackgroudType:Int {
-    case zero
+    case zero = 0
     ///
     case one
     ///
@@ -123,6 +133,7 @@ enum RDBackgroudType:Int {
     case three
     
     case four
+
 }
 
 let RD_ReadConfigModelKey = "RD_ReadConfigModel_User"
@@ -144,7 +155,8 @@ class ReadConfigModel{
     var fontType : RDFontType = .system
     //间距类型
     var spacingType : RDSpacingType = .middle
-    
+    //是否是白天
+    var isDay = true
     ///段间距
     var paragraphSpacing:CGFloat  {
         switch spacingType {
@@ -176,20 +188,24 @@ class ReadConfigModel{
     ///字体颜色
     var textColor : UIColor {
         switch self.backgroudType {
-        case.zero:
-            return RD_TEXT_COLOR_DEFAULT
+        case .zero:
+            return TXTheme.rgbColor(171, 171, 171)
         case .one:
-            return RD_TEXT_COLOR_FIRST
+            return TXTheme.rgbColor(169, 166, 160)
         case .two:
-            return RD_TEXT_COLOR_SECOND
+            return TXTheme.rgbColor(157, 161, 156)
         case .three:
-            return RD_TEXT_COLOR_THIRD
+            return TXTheme.rgbColor(168, 165, 155)
         case .four:
-            return RD_TEXT_COLOR_FOURTH
-        default:
-            return RD_TEXT_COLOR_DEFAULT
+            return TXTheme.rgbColor(163, 170, 172)
         }
     }
+    
+    ///
+    var statusColor : UIColor {
+        return TXTheme.rgbColor(145, 145, 145)
+    }
+    
     
     /// 阅读字体
     func font(isTitle:Bool = false) ->UIFont {
@@ -223,6 +239,7 @@ class ReadConfigModel{
     
     
       /// 获取对象
+    @discardableResult
     class func shared() ->ReadConfigModel {
       
         if configure == nil { configure = ReadConfigModel(UserDefaults.standard.object(forKey: RD_ReadConfigModelKey)) }
@@ -254,8 +271,13 @@ class ReadConfigModel{
             if let imageSever = param["imageSever"] as? String{
                 self.imageSever = imageSever
             }
+            if let isDay = param["isDay"] as? Bool{
+                self.isDay = isDay
+            }
+            
         }
         
+        //MARK:-  请求配置域名
         RDBookNetManager.getConfigNetwork(success: { [weak self](response) in
             if let model = BaseModel.getModel(data: response),model.code == 200,let data = model.data as? Dictionary<String,Any>{
                 if let contentSever = data["Chapter"] as? String{
@@ -314,6 +336,48 @@ class ReadConfigModel{
             return [.foregroundColor: textColor, .font: font(isTitle: isTitle), .paragraphStyle: paragraphStyle]
         }
     }
+    
+    
+    //[TXTheme.rgbColor(255, 255, 255),
+    //                     TXTheme.rgbColor(236, 224, 204),
+    //                     TXTheme.rgbColor(212, 237, 208),
+    //                     TXTheme.rgbColor(243, 226, 175),
+    //                     TXTheme.rgbColor(211, 232, 240)
+    //                   ]
+    
+    func backgroudColor() -> UIColor {
+        switch self.backgroudType {
+        case .zero:
+            return TXTheme.rgbColor(255, 255, 255)
+        case .one:
+            return TXTheme.rgbColor(236, 224, 204)
+        case .two:
+            return TXTheme.rgbColor(212, 237, 208)
+        case .three:
+            return TXTheme.rgbColor(243, 226, 175)
+        case .four:
+            return TXTheme.rgbColor(211, 232, 240)
+        }
+    }
+    
+    func fontColor() -> UIColor {
+        switch self.backgroudType {
+        case .zero:
+            return TXTheme.rgbColor(171, 171, 171)
+        case .one:
+            return TXTheme.rgbColor(169, 166, 160)
+        case .two:
+            return TXTheme.rgbColor(157, 161, 156)
+        case .three:
+            return TXTheme.rgbColor(168, 165, 155)
+        case .four:
+            return TXTheme.rgbColor(163, 170, 172)
+        }
+    }
+    
+    func menuBackgroudColor() -> UIColor {
+        return TXTheme.rgbColor(55, 55, 55, 0.8)
+    }
 
     func save() {
         let param = ["turnPageType":effectType.rawValue,
@@ -322,7 +386,8 @@ class ReadConfigModel{
                     "fontType":fontType.rawValue,
                     "spacingType":spacingType.rawValue,
                     "contentSever":contentSever,
-                    "imageSever":imageSever
+                    "imageSever":imageSever,
+                    "isDay":isDay
             ] as [String : Any]
         UserDefaults.standard.set(param, forKey: RD_ReadConfigModelKey)
         UserDefaults.standard.synchronize()

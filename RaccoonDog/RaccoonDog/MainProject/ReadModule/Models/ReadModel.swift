@@ -110,12 +110,12 @@ class ParserReadModel:NSObject,NSSecureCoding,NSCopying {
     //章节标题
     var title : String?
     
-    var fullAttrText : NSAttributedString?
+//    var fullAttrText : NSAttributedString?
     
     var ranges : [NSRange] = []
     
     
-    var fullText : String?
+     private(set) var fullText : String?
     
     
     func copy(with zone: NSZone? = nil) -> Any {
@@ -181,6 +181,10 @@ class ParserReadModel:NSObject,NSSecureCoding,NSCopying {
     func nextPage() {
         if page.intValue < (pageModels.count - 1) {
             page = NSNumber.init(value:  page.intValue + 1)
+        }else{
+//            if let nextModel = self.nextModel {
+//
+//            }
         }
     }
     
@@ -209,7 +213,7 @@ class ParserReadModel:NSObject,NSSecureCoding,NSCopying {
 
     
     func setFullText(fullText: String) {
-        self.fullText = fullText
+        self.fullText = fullText.formatContent()
         self.parserModel()
 
     }
@@ -249,7 +253,7 @@ class ParserReadModel:NSObject,NSSecureCoding,NSCopying {
     func parserModel() {
 
         let fullAttr = fullContentAttrString()
-        fullAttrText = fullAttr
+//        fullAttrText = fullAttr
         let rect = CGRect.init(x: 0, y: 0, width: DZM_READ_VIEW_RECT.size.width, height: DZM_READ_VIEW_RECT.size.height)
         let ranges = DZMCoreText.GetPageingRanges(attrString: fullAttr, rect: rect  )
         self.pageModels.removeAll()

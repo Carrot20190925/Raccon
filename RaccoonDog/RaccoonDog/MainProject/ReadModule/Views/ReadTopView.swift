@@ -29,7 +29,7 @@ class ReadTopView: BaseView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.lightGray
+        self.backgroundColor = ReadConfigModel.shared().menuBackgroudColor()
         self.addSubviews()
     }
     
@@ -44,7 +44,7 @@ class ReadTopView: BaseView {
         back = UIButton(type:.custom)
         back.setImage(UIImage(named:"back")!.withRenderingMode(.alwaysTemplate), for: .normal)
         back.addTarget(self, action: #selector(clickBack), for: .touchUpInside)
-//        back.tintColor = DZM_READ_COLOR_MENU_COLOR
+        back.tintColor = TXTheme.rgbColor(230, 230, 230)
         addSubview(back)
         
         // 书签

@@ -25,13 +25,13 @@ class ReadBottomView: BaseView {
     override func addSubviews() {
         
         super.addSubviews()
-        
-        backgroundColor = UIColor.clear
+        backgroundColor = ReadConfigModel.shared().menuBackgroudColor()
         
         // 目录
         catalogue = UIButton(type:.custom)
         catalogue.setImage(UIImage(named:"bar_0")?.withRenderingMode(.alwaysTemplate), for: .normal)
         catalogue.addTarget(self, action: #selector(clickCatalogue), for: .touchUpInside)
+        catalogue.tintColor = TXTheme.rgbColor(230, 230, 230)
         addSubview(catalogue)
         
         // 日夜间
@@ -39,6 +39,8 @@ class ReadBottomView: BaseView {
         dn.setImage(UIImage(named:"bar_2")!.withRenderingMode(.alwaysTemplate), for: .normal)
         dn.addTarget(self, action: #selector(clickDN(_:)), for: .touchUpInside)
         dn.isSelected = DZMUserDefaults.bool(DZM_READ_KEY_MODE_DAY_NIGHT)
+        dn.tintColor = TXTheme.rgbColor(230, 230, 230)
+
         addSubview(dn)
         updateDNButton()
         
@@ -46,13 +48,13 @@ class ReadBottomView: BaseView {
         setting = UIButton(type: .custom)
         setting.setImage(UIImage(named:"bar_1")!.withRenderingMode(.alwaysTemplate), for: .normal)
         setting.addTarget(self, action: #selector(clickSetting), for: .touchUpInside)
-//        setting.tintColor = DZM_READ_COLOR_MENU_COLOR
+        setting.tintColor = TXTheme.rgbColor(230, 230, 230)
         addSubview(setting)
     }
     
     /// 点击目录
     @objc private func clickCatalogue() {
-        self.delegate?.showList()
+        self.delegate?.showListView()
 //        readMenu?.delegate?.readMenuClickCatalogue?(readMenu: readMenu)
     }
     
@@ -74,7 +76,7 @@ class ReadBottomView: BaseView {
     
     /// 点击设置
     @objc private func clickSetting() {
-        self.delegate?.showSet()
+        self.delegate?.showSetView()
     }
     
     /// 刷新日夜间按钮显示状态
@@ -90,12 +92,12 @@ class ReadBottomView: BaseView {
         super.layoutSubviews()
         
         let wh = frame.size.height
+        let ww = frame.size.width / 3.0
+        catalogue.frame = CGRect(x: 0, y: DZM_SPACE_SA_3, width: ww, height: wh)
         
-        catalogue.frame = CGRect(x: 0, y: DZM_SPACE_SA_3, width: wh, height: wh)
+        dn.frame = CGRect(x: ww, y: DZM_SPACE_SA_3, width: ww, height: wh)
         
-        dn.frame = CGRect(x: (frame.size.width - wh)/2, y: DZM_SPACE_SA_3, width: wh, height: wh)
-        
-        setting.frame = CGRect(x: frame.size.width - wh, y: DZM_SPACE_SA_3, width: wh, height: wh)
+        setting.frame = CGRect(x:ww * 2, y: DZM_SPACE_SA_3, width: ww, height: wh)
     }
     
     required init?(coder aDecoder: NSCoder) {

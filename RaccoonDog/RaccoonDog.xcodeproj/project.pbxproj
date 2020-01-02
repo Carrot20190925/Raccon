@@ -28,8 +28,6 @@
 		080600D623B340F4008FB260 /* NovelListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080600D523B340F4008FB260 /* NovelListVC.swift */; };
 		0807503C23B3524B00D7BB36 /* ContentMananger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0807503B23B3524B00D7BB36 /* ContentMananger.swift */; };
 		080899CA23AF196300AEEB52 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080899C923AF196300AEEB52 /* AppDelegate.swift */; };
-		080899CE23AF196300AEEB52 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080899CD23AF196300AEEB52 /* ViewController.swift */; };
-		080899D123AF196300AEEB52 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 080899CF23AF196300AEEB52 /* Main.storyboard */; };
 		080899D323AF196300AEEB52 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 080899D223AF196300AEEB52 /* Assets.xcassets */; };
 		080899D623AF196300AEEB52 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 080899D423AF196300AEEB52 /* LaunchScreen.storyboard */; };
 		080899E323AF350D00AEEB52 /* BaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080899E223AF350D00AEEB52 /* BaseController.swift */; };
@@ -93,6 +91,10 @@
 		0870DA1D23B48BC1005A50E1 /* ReadContentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0870DA1C23B48BC1005A50E1 /* ReadContentVC.swift */; };
 		0870DA2023B48CA0005A50E1 /* DZMReadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0870DA1F23B48CA0005A50E1 /* DZMReadView.swift */; };
 		08F3C34223BA107E007B9934 /* BannerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F3C34123BA107E007B9934 /* BannerModel.swift */; };
+		08F3C34623BC775D007B9934 /* DZMCoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F3C34523BC775D007B9934 /* DZMCoverController.m */; };
+		08F3C37123BCA455007B9934 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F3C37023BCA454007B9934 /* SceneDelegate.swift */; };
+		08F3C37323BCB13D007B9934 /* DZMBatteryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F3C37223BCB13D007B9934 /* DZMBatteryView.swift */; };
+		08F3C37523BCB22F007B9934 /* DZMReadViewStatusBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F3C37423BCB22F007B9934 /* DZMReadViewStatusBottomView.swift */; };
 		08F84DC823B7724D008E6558 /* CategroyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F84DC723B7724D008E6558 /* CategroyVC.swift */; };
 		08F84DCA23B774F9008E6558 /* CategoryListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F84DC923B774F9008E6558 /* CategoryListVC.swift */; };
 		08F84DCE23B99F36008E6558 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F84DCC23B99F36008E6558 /* CategoryCell.swift */; };
@@ -131,8 +133,6 @@
 		0807503B23B3524B00D7BB36 /* ContentMananger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentMananger.swift; sourceTree = "<group>"; };
 		080899C623AF196300AEEB52 /* RaccoonDog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RaccoonDog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		080899C923AF196300AEEB52 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		080899CD23AF196300AEEB52 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		080899D023AF196300AEEB52 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		080899D223AF196300AEEB52 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		080899D523AF196300AEEB52 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		080899D723AF196300AEEB52 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -202,6 +202,11 @@
 		0870DA1C23B48BC1005A50E1 /* ReadContentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadContentVC.swift; sourceTree = "<group>"; };
 		0870DA1F23B48CA0005A50E1 /* DZMReadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DZMReadView.swift; sourceTree = "<group>"; };
 		08F3C34123BA107E007B9934 /* BannerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerModel.swift; sourceTree = "<group>"; };
+		08F3C34423BC775D007B9934 /* DZMCoverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DZMCoverController.h; sourceTree = "<group>"; };
+		08F3C34523BC775D007B9934 /* DZMCoverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DZMCoverController.m; sourceTree = "<group>"; };
+		08F3C37023BCA454007B9934 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		08F3C37223BCB13D007B9934 /* DZMBatteryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DZMBatteryView.swift; sourceTree = "<group>"; };
+		08F3C37423BCB22F007B9934 /* DZMReadViewStatusBottomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DZMReadViewStatusBottomView.swift; sourceTree = "<group>"; };
 		08F84DC723B7724D008E6558 /* CategroyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategroyVC.swift; sourceTree = "<group>"; };
 		08F84DC923B774F9008E6558 /* CategoryListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListVC.swift; sourceTree = "<group>"; };
 		08F84DCC23B99F36008E6558 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
@@ -339,11 +344,10 @@
 			children = (
 				080899DE23AF34E700AEEB52 /* MainProject */,
 				080899C923AF196300AEEB52 /* AppDelegate.swift */,
-				080899CD23AF196300AEEB52 /* ViewController.swift */,
-				080899CF23AF196300AEEB52 /* Main.storyboard */,
+				080899D723AF196300AEEB52 /* Info.plist */,
+				08F3C37023BCA454007B9934 /* SceneDelegate.swift */,
 				080899D223AF196300AEEB52 /* Assets.xcassets */,
 				080899D423AF196300AEEB52 /* LaunchScreen.storyboard */,
-				080899D723AF196300AEEB52 /* Info.plist */,
 			);
 			path = RaccoonDog;
 			sourceTree = "<group>";
@@ -480,6 +484,7 @@
 		0870DA0623B378FA005A50E1 /* ReadModule */ = {
 			isa = PBXGroup;
 			children = (
+				08F3C34323BC775D007B9934 /* DZMCoverController */,
 				0870DA1E23B48CA0005A50E1 /* Views */,
 				0870DA1123B470E6005A50E1 /* custom */,
 				0870DA0A23B37930005A50E1 /* Models */,
@@ -528,6 +533,17 @@
 				0828E2D523B5D16E00465A34 /* ReadSetView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		08F3C34323BC775D007B9934 /* DZMCoverController */ = {
+			isa = PBXGroup;
+			children = (
+				08F3C37423BCB22F007B9934 /* DZMReadViewStatusBottomView.swift */,
+				08F3C37223BCB13D007B9934 /* DZMBatteryView.swift */,
+				08F3C34423BC775D007B9934 /* DZMCoverController.h */,
+				08F3C34523BC775D007B9934 /* DZMCoverController.m */,
+			);
+			path = DZMCoverController;
 			sourceTree = "<group>";
 		};
 		08F84DCB23B99EF3008E6558 /* View */ = {
@@ -669,7 +685,6 @@
 				080899D623AF196300AEEB52 /* LaunchScreen.storyboard in Resources */,
 				080899D323AF196300AEEB52 /* Assets.xcassets in Resources */,
 				08F84DE123B9CEEC008E6558 /* BookDetailListCell.xib in Resources */,
-				080899D123AF196300AEEB52 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -771,17 +786,18 @@
 				080600B723B1E400008FB260 /* BaseCollectionVC.swift in Sources */,
 				080600D423B30F5F008FB260 /* NovelChapterModel.swift in Sources */,
 				08089A2223AF802000AEEB52 /* Tool.swift in Sources */,
+				08F3C37523BCB22F007B9934 /* DZMReadViewStatusBottomView.swift in Sources */,
 				080600D023B22466008FB260 /* RDKingfisherManager.swift in Sources */,
 				080600C523B1E624008FB260 /* BookStoreFirstCell.swift in Sources */,
 				0828E2DC23B7401700465A34 /* BannerView.swift in Sources */,
 				08089A4023B08AD200AEEB52 /* PhoneNumberUtil.m in Sources */,
 				0828E2D623B5D16E00465A34 /* ReadSetView.swift in Sources */,
-				080899CE23AF196300AEEB52 /* ViewController.swift in Sources */,
 				08089A2723AF8CB000AEEB52 /* RDConfig.swift in Sources */,
 				08F84DDC23B9C34F008E6558 /* BookDetailHeadView.swift in Sources */,
 				08089A5323B0DCBA00AEEB52 /* BaseModel.swift in Sources */,
 				0870DA0923B3791A005A50E1 /* ReadVC.swift in Sources */,
 				08F84DD123B9B6DD008E6558 /* BookStoreHeadView.swift in Sources */,
+				08F3C37123BCA455007B9934 /* SceneDelegate.swift in Sources */,
 				080600D623B340F4008FB260 /* NovelListVC.swift in Sources */,
 				08089A4E23B09BA800AEEB52 /* RDCountryCell.swift in Sources */,
 				08089A2B23B0681E00AEEB52 /* TXTheme.swift in Sources */,
@@ -799,6 +815,7 @@
 				080600AF23B1D95A008FB260 /* BookStoreVC.swift in Sources */,
 				08F84DCA23B774F9008E6558 /* CategoryListVC.swift in Sources */,
 				080600C723B1F98C008FB260 /* RDRequesFactory.swift in Sources */,
+				08F3C37323BCB13D007B9934 /* DZMBatteryView.swift in Sources */,
 				08089A3D23B08AA400AEEB52 /* RDContryCodeVC.swift in Sources */,
 				0870DA1723B470E6005A50E1 /* DZMUserDefaults.swift in Sources */,
 				0870DA1523B470E6005A50E1 /* DZMKeyedArchiver.swift in Sources */,
@@ -810,6 +827,7 @@
 				08F84DD623B9C086008E6558 /* BookDetailVC.swift in Sources */,
 				08089A2523AF898900AEEB52 /* RDServerInfo.swift in Sources */,
 				0805BD7023B5B1A30075E96B /* BaseView.swift in Sources */,
+				08F3C34623BC775D007B9934 /* DZMCoverController.m in Sources */,
 				08089A0023AF4B1500AEEB52 /* UIImage+OWS.m in Sources */,
 				08F84DCE23B99F36008E6558 /* CategoryCell.swift in Sources */,
 				0807503C23B3524B00D7BB36 /* ContentMananger.swift in Sources */,
@@ -834,14 +852,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		080899CF23AF196300AEEB52 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				080899D023AF196300AEEB52 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		080899D423AF196300AEEB52 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
